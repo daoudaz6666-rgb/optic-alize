@@ -1,0 +1,12 @@
+Visuels des CONSEILS (page conseils.html)
+=========================================
+
+Publications officielles Optic Alize. Gerees dans js/publications.js
+=> tableau CONSEILS.
+
+  soins-vue.jpg      -> 4 reflexes pour preserver sa vue
+  entretien.jpg      -> Comment bien entretenir ses lunettes
+  verres-propres.jpg -> Spray + microfibre
+  erreur-1/2/3.jpg   -> Les 3 erreurs de nettoyage
+
+Format : carre ou portrait, ~1080 px, < 150 Ko.

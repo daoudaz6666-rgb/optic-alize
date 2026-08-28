@@ -1,0 +1,17 @@
+Visuels des ACTUALITES (page actualites.html)
+=============================================
+
+header-20ans.jpg  : photo d'en-tete (bandeau) = l'equipe des 20 ans
+
+Grille (tableau ACTUALITES dans js/publications.js) :
+  20ans-gateau.jpg   -> Optic Alize fete ses 20 ans
+  20ans-equipe.jpg   -> Toute l'equipe reunie
+  20ans-trophee.jpg  -> Remise de distinctions
+  20ans-scene.jpg    -> Ambiance festive
+  vision-priorite.jpg / monture-parfaite.jpg / deux-styles.jpg
+  pack-duo-detail.jpg / remise-septembre.jpg
+
+Pour changer la photo d'en-tete : remplace actualites/header-20ans.jpg
+(format paysage large, ~1800 x 760 px) ou change le src dans actualites.html.
+
+_sources/ : photos brutes de l'evenement (12), non redimensionnees.

@@ -1,0 +1,20 @@
+Photos des montures
+===================
+
+m001.jpg .. m008.jpg : une photo par modèle (déjà en place).
+Pour remplacer un modèle, écrase simplement le fichier correspondant :
+
+  m001.jpg -> Alizé Ovale Écaille       (vue / femme)
+  m002.jpg -> Zéphyr Carrée Noire        (vue / homme)
+  m003.jpg -> Mistral Papillon           (soleil / femme)
+  m004.jpg -> Harmattan Pilote           (soleil / homme)
+  m005.jpg -> Petit Alizé Ronde          (vue / enfant)
+  m006.jpg -> Brise Ronde Dorée          (vue / femme)
+  m007.jpg -> Sirocco Ovale              (vue / homme)
+  m008.jpg -> Tramontane Carrée          (soleil / femme)
+
+Format : JPG, ratio 4:3 (1000 x 750 px), < 150 Ko.
+Si un fichier est absent, le pictogramme SVG reprend la place automatiquement.
+
+_sources/ : photos Pexels d'origine (non utilisées par le site, à conserver
+comme archives ou à supprimer).

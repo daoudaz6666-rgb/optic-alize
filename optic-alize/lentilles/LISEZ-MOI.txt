@@ -1,0 +1,22 @@
+Photos des lentilles de contact
+===============================
+
+Utilisées sur la page Lentilles et les fiches produit :
+
+  lentilles-hydratees.jpg  -> l001 (Day Myopie) + l006 (Day Tor)
+  lentille-doigt.jpg       -> l002 (Tor Mensuelle) + l004 (Clear Mensuelle)
+  paire-lentilles.jpg      -> l003 (Day Hypermétropie) + l005 (Progressive)
+
+Seulement 3 photos exploitables ont été trouvées, donc chacune sert
+pour 2 produits (jamais côte à côte dans la grille). Pour un visuel
+unique par produit, il faut 3 photos de plus (JPG 4:3, ~900x675, < 150 Ko).
+Mappage modifiable dans  js/produits.js  (champ "photo").
+
+_sources/ : images d'origine (noms en hash), NON libres de droit.
+À écarter absolument :
+  - 669ae7d4… : infographie « MYTH/FACT » avec logo EyesOnBrickell + filigrane Freepik
+  - f54fde27… : pub « CRISTALES BLUE LIGHT » avec logo NITID
+Les autres (photo doigt basse résolution, schémas) n'ont pas été retenues.
+=> Remplace par des photos libres de droit ou fournies par ton
+fournisseur de lentilles (OptiVision, Acuvue, CooperVision…),
+puis supprime _sources/.

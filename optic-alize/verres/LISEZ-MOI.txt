@@ -1,0 +1,22 @@
+Photos des verres (page "Nos verres")
+=====================================
+
+unifocaux.jpg
+progressifs.jpg
+anti-lumiere-bleue.jpg
+photochromiques.jpg
+polarises.jpg
+amincis.jpg
+antireflet.jpg
+solaires.jpg
+
+Format : paysage 4:3 (~1000 x 750 px), < 150 Ko.
+Si un fichier manque, un visuel dégradé s'affiche à la place.
+
+Le texte (titre, description, avantages) se modifie dans  js/verres.js.
+
+_sources/ : images d'origine récupérées sur le web (noms en hash).
+⚠️ Non libres de droit — 3 d'entre elles portent un filigrane/logo
+d'autres marques. À REMPLACER par des photos libres de droit ou
+fournies par ton fournisseur de verres (Essilor, Zeiss, Hoya…),
+puis supprime _sources/.

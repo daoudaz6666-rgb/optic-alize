@@ -1,0 +1,21 @@
+Images des collections de marques (carrousel de l'accueil)
+=========================================================
+
+Section « Les plus belles collections de lunettes ».
+
+Déposez une image CARRÉE par marque, nommée d'après la marque en
+minuscules avec des tirets :
+
+  ray-ban.jpg      persol.jpg       oakley.jpg
+  maui-jim.jpg     randolph.jpg     gucci.jpg
+  hugo-boss.jpg    cartier.jpg      chloe.jpg
+  marc-jacobs.jpg  dior.jpg         burberry.jpg
+
+Format : carré (~500 x 500 px), < 120 Ko, une paire de lunettes
+sur fond neutre.
+
+Tant qu'une image est absente, une vignette dégradée avec le nom
+de la marque s'affiche automatiquement.
+
+La liste des marques se modifie dans le <script> en bas de index.html
+(tableau COLLECTIONS).

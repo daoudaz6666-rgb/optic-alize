@@ -1,0 +1,15 @@
+Visuels des OFFRES (page offres.html)
+=====================================
+
+Publications officielles Optic Alize, affichees telles quelles
+(image + titre + texte + bouton), gerees dans js/publications.js
+=> tableau OFFRES.
+
+Fichiers utilises :
+  pack-duo.jpg        -> Pack Duo, 2e paire offerte
+  jours-prestiges.jpg -> Jours Prestiges -50%
+  test-visuel.jpg     -> Test visuel gratuit
+  entretien-promo.jpg -> Entretien / SAV / -50%
+
+Format : carre ou portrait, ~1080 px, < 150 Ko.
+_sources/ : visuels d'origine (Facebook/Instagram) + ceux non retenus.
