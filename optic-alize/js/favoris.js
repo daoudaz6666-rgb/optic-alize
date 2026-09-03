@@ -171,7 +171,6 @@ function renderFavoris() {
         <h3 class="product-name"><a href="produit.html?id=${p.id}">${p.nom}</a></h3>
         <p class="product-desc">${p.desc}</p>
         <div class="product-foot">
-          <span class="product-price">${formatFCFA(p.prix)}</span>
           <button class="btn btn-primary btn-sm" onclick="addToCart('${p.id}')">Ajouter</button>
         </div>
       </div>

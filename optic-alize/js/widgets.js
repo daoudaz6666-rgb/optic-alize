@@ -9,7 +9,7 @@
    (localStorage). Aucune donnée n'est envoyée à un serveur.
    ============================================================ */
 
-const WA_NUMERO = "22605014229"; // numéro WhatsApp (format international, sans +)
+const WA_NUMERO = "22675093939"; // numéro WhatsApp Optic Alizé (format international, sans +)
 
 /* ---------- 1. Comptage des visites ---------- */
 (function trackVisite() {
@@ -152,8 +152,8 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="chat-panel" hidden>
       <div class="chat-head">
         <div>
-          <strong>Optic Alizé</strong>
-          <span>Réponse en quelques minutes</span>
+          <strong>Assistant Optic Alizé</strong>
+          <span>En ligne · réponses immédiates</span>
         </div>
         <button class="chat-x" type="button" aria-label="Fermer">&times;</button>
       </div>
@@ -200,12 +200,162 @@ document.addEventListener("DOMContentLoaded", () => {
     body.scrollTop = body.scrollHeight;
   }
 
+  /* --- moteur de réponses (mots-clés) ---------------------------------
+     L'assistant répond directement aux questions sur les produits, les
+     services, les offres et les agences. Les questions de prix / paiement
+     renvoient vers WhatsApp. Tout le reste : réponse "hors périmètre". */
+  const sansAccent = (s) =>
+    String(s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+
+  const NB_MONTURES =
+    typeof PRODUITS !== "undefined"
+      ? PRODUITS.filter((p) => p.categorie === "montures").length
+      : 0;
+
+  function correspond(texte, mots) {
+    return mots.some((mot) => {
+      const m = sansAccent(mot);
+      if (m.indexOf(" ") !== -1) return texte.indexOf(m) !== -1;
+      return new RegExp("\\b" + m.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\w*\\b").test(texte);
+    });
+  }
+
+  const INTENTIONS = [
+    {
+      cle: "merci",
+      mots: ["merci", "je vous remercie"],
+      rep: () => "Avec plaisir ! Autre chose ?",
+    },
+    {
+      cle: "bonjour",
+      mots: ["bonjour", "salut", "bonsoir", "coucou", "hello", "bonne journee"],
+      rep: () =>
+        "Bonjour 👋 Posez-moi une question sur nos lunettes, lentilles, verres, accessoires, nos services, nos offres ou nos agences.",
+    },
+    {
+      cle: "finance",
+      mots: [
+        "prix", "tarif", "cout", "combien", "coute", "payer", "paiement",
+        "espece", "mobile money", "orange money", "moov money", "wave",
+        "carte bancaire", "facilite de paiement", "credit", "echelonne",
+        "acompte", "devis", "remboursement", "mutuelle", "assurance",
+        "prise en charge", "cher", "budget", "facture",
+      ],
+      rep: () =>
+        `Pour les prix, le paiement ou un devis, un conseiller vous répond directement sur WhatsApp : <a href="${waLien("Bonjour, j'ai une question sur les prix / le paiement.")}" target="_blank" rel="noopener">ouvrir WhatsApp</a>.`,
+    },
+    {
+      cle: "rdv",
+      mots: ["rendez-vous", "rendez vous", "rdv", "reserver", "prendre rendez", "consultation"],
+      rep: () =>
+        `Réservez un créneau en ligne : <a href="contact.html?tab=rdv">prendre rendez-vous</a>. On confirme par téléphone ou WhatsApp.`,
+    },
+    {
+      cle: "services",
+      mots: [
+        "service", "examen", "test de vue", "controle de vue", "prestation",
+        "reparation", "reglage", "ajustement", "garantie", "sav", "depannage", "opticien",
+      ],
+      rep: () =>
+        `Nos opticiens assurent : examen de vue, essayage de montures, adaptation de lentilles, réglage et réparation. L'ajustement de vos montures est gratuit à vie. Pour un créneau : <a href="contact.html?tab=rdv">prendre rendez-vous</a>.`,
+    },
+    {
+      cle: "montures",
+      mots: [
+        "monture", "lunette", "solaire", "soleil", "cadre", "marque",
+        "ray-ban", "dior", "gucci", "persol", "pilote", "papillon",
+      ],
+      rep: () =>
+        `Nous avons ${NB_MONTURES || "plusieurs"} modèles de montures de vue et de soleil, pour femme, homme et enfant, toutes formes : <a href="montures.html">voir les montures</a> (filtres par type, genre et forme).`,
+    },
+    {
+      cle: "lentilles",
+      mots: ["lentille", "journaliere", "mensuelle", "myopie", "astigmat", "presbytie", "hypermetropie"],
+      rep: () =>
+        `Lentilles journalières et mensuelles pour myopie, astigmatie, hypermétropie et presbytie : <a href="lentilles.html">voir les lentilles</a>. L'adaptation se fait avec un opticien (<a href="contact.html?tab=rdv">rendez-vous</a>).`,
+    },
+    {
+      cle: "verres",
+      mots: [
+        "verre", "anti-reflet", "antireflet", "lumiere bleue", "photochromique",
+        "aminci", "traitement", "progressif", "teinte",
+      ],
+      rep: () => {
+        let liste = "";
+        if (typeof VERRES !== "undefined" && VERRES.length) {
+          liste = " : " + VERRES.slice(0, 4).map((v) => v.titre).filter(Boolean).join(", ");
+        }
+        return `Nous montons plusieurs types de verres${liste}. Détails sur <a href="verres.html">la page Verres</a>.`;
+      },
+    },
+    {
+      cle: "connectees",
+      mots: ["connectee", "connecte", "audio", "bluetooth", "smart"],
+      rep: () => `Découvrez nos lunettes connectées : <a href="connectees.html">voir la sélection</a>.`,
+    },
+    {
+      cle: "accessoires",
+      mots: ["accessoire", "etui", "cordon", "spray", "lingette", "nettoyage", "entretien"],
+      rep: () => `Étuis, cordons, sprays et produits d'entretien : <a href="accessoires.html">nos accessoires</a>.`,
+    },
+    {
+      cle: "offres",
+      mots: ["offre", "promo", "promotion", "solde", "remise", "bon plan", "reduction"],
+      rep: () => `Nos offres du moment : <a href="offres.html">voir les offres</a>.`,
+    },
+    {
+      cle: "livraison",
+      mots: ["livraison", "livrer", "livre", "commander", "commande", "retrait", "delai", "expedition", "suivi"],
+      rep: () =>
+        `Vous choisissez en ligne, la commande part vers l'agence la plus proche et vous retirez sur place. Pour suivre une commande : <a href="${waLien("Bonjour, je souhaite suivre ma commande.")}" target="_blank" rel="noopener">écrire sur WhatsApp</a>.`,
+    },
+    {
+      cle: "agences",
+      mots: [
+        "agence", "adresse", "ou etes", "ou est", "ou se trouve", "magasin",
+        "boutique", "ville", "ouaga", "bobo", "koudougou", "carte", "itineraire",
+        "localisation", "telephone", "numero", "joindre", "contact", "email",
+        "mail", "horaire", "heure", "ouvert", "ferme", "ouverture",
+      ],
+      rep: () =>
+        `Nos agences sont à Ouagadougou, Bobo-Dioulasso et Koudougou, ouvertes du lundi au samedi de 8h à 19h. Adresses, carte et numéros : <a href="contact.html">page Contact</a>. Tél : <a href="tel:+22675093939">+226 75 09 39 39</a>.`,
+    },
+    {
+      cle: "compte",
+      mots: ["compte", "connexion", "connecter", "mot de passe", "inscription", "inscrire", "identifiant"],
+      rep: () => `Créez un compte ou connectez-vous ici : <a href="compte.html">mon compte</a>.`,
+    },
+    {
+      cle: "humain",
+      mots: ["conseiller", "humain", "operateur", "quelqu un", "quelquun"],
+      rep: () =>
+        `Un conseiller vous répond sur WhatsApp : <a href="${waLien()}" target="_blank" rel="noopener">démarrer la discussion</a>.`,
+    },
+  ];
+
+  function repondreA(texte) {
+    const t = sansAccent(texte);
+    for (const it of INTENTIONS) {
+      if (correspond(t, it.mots)) return it.rep();
+    }
+    return null;
+  }
+  const rep = (cle) => {
+    const it = INTENTIONS.find((i) => i.cle === cle);
+    return it ? it.rep() : "";
+  };
+  const HORS_PERIMETRE =
+    `Désolé, je ne peux répondre qu'aux questions sur Optic Alizé : lunettes, lentilles, verres, accessoires, nos services, nos offres et nos agences. ` +
+    `Pour toute autre demande, écrivez-nous sur <a href="${waLien()}" target="_blank" rel="noopener">WhatsApp</a>.`;
+
   const MENU = [
-    { label: "Prendre rendez-vous", action: () => { bulle('Vous pouvez réserver un créneau ici : <a href="contact.html?tab=rdv">Prendre rendez-vous</a>.'); menu(); } },
-    { label: "Où sont vos agences ?", action: () => { bulle("Optic Alizé, c'est plus de 11 agences à Ouagadougou, Bobo-Dioulasso et Koudougou. La carte est sur la page <a href='contact.html'>Contact</a>."); menu(); } },
-    { label: "Voir les offres", action: () => { bulle('Nos promotions du moment : <a href="offres.html">Nos offres</a>.'); menu(); } },
-    { label: "Suivi de ma commande", action: () => { bulle(`Donnez-nous votre nom et votre numéro de commande sur WhatsApp, on vous répond vite : <a href="${waLien('Bonjour, je souhaite suivre ma commande.')}" target="_blank" rel="noopener">Ouvrir WhatsApp</a>.`); menu(); } },
-    { label: "Parler à un conseiller", action: () => { bulle(`Un conseiller vous répond sur WhatsApp : <a href="${waLien()}" target="_blank" rel="noopener">Démarrer la discussion</a>.`); menu(); } },
+    { label: "Nos lunettes & marques", action: () => { bulle(rep("montures")); menu(); } },
+    { label: "Lentilles de contact", action: () => { bulle(rep("lentilles")); menu(); } },
+    { label: "Nos verres", action: () => { bulle(rep("verres")); menu(); } },
+    { label: "Nos offres", action: () => { bulle(rep("offres")); menu(); } },
+    { label: "Prix & paiement", action: () => { bulle(rep("finance")); menu(); } },
+    { label: "Nos agences", action: () => { bulle(rep("agences")); menu(); } },
+    { label: "Prendre rendez-vous", action: () => { bulle(rep("rdv")); menu(); } },
   ];
   function menu() {
     setTimeout(() => reponses(MENU), 250);
@@ -218,7 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
     input.focus();
     if (!ouvertUneFois) {
       ouvertUneFois = true;
-      bulle("Bonjour 👋 Je suis l'assistant Optic Alizé. Comment puis-je vous aider ?");
+      bulle("Bonjour 👋 Je suis l'assistant Optic Alizé. Posez-moi une question sur nos lunettes, lentilles, verres, services, offres ou agences.");
       menu();
     }
   }
@@ -239,15 +389,22 @@ document.addEventListener("DOMContentLoaded", () => {
     // capture d'un e-mail éventuel dans le message
     const m = txt.match(/[^@\s]+@[^@\s]+\.[^@\s]+/);
     if (m) enregistrerEmail(m[0], "chat");
+    const reponse = repondreA(txt);
     try {
       const KEY = "optic-alize-chat";
       const log = JSON.parse(localStorage.getItem(KEY)) || [];
-      log.push({ message: txt, page: location.pathname.split("/").pop(), date: new Date().toISOString() });
+      log.push({
+        message: txt,
+        repondu: !!reponse,
+        page: location.pathname.split("/").pop(),
+        date: new Date().toISOString(),
+      });
       localStorage.setItem(KEY, JSON.stringify(log));
     } catch (err) {}
     setTimeout(() => {
-      bulle(`Merci ! Un conseiller vous répondra. Pour une réponse immédiate, écrivez-nous sur <a href="${waLien(txt)}" target="_blank" rel="noopener">WhatsApp</a>.`);
-    }, 500);
+      bulle(reponse || HORS_PERIMETRE);
+      menu();
+    }, 400);
   });
 
   /* ---------- 5. Newsletter dans le pied de page ---------- */

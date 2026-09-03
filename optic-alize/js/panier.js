@@ -6,7 +6,7 @@
    ============================================================ */
 
 const CART_KEY = "optic-alize-panier";
-const BOUTIQUE_WHATSAPP = "22605014229"; // à remplacer par le vrai numéro (format international, sans le +)
+const BOUTIQUE_WHATSAPP = "22675093939"; // à remplacer par le vrai numéro (format international, sans le +)
 const BOUTIQUE_EMAIL = "commandes@opticalize.bf"; // à remplacer par la vraie adresse
 
 function getCart() {

@@ -49,7 +49,7 @@ const MKT = {
 /* ▲▲▲  fin des réglages  ▲▲▲ */
 
 (function () {
-  const WA = (typeof WA_NUMERO !== "undefined" && WA_NUMERO) || "22605014229";
+  const WA = (typeof WA_NUMERO !== "undefined" && WA_NUMERO) || "22675093939";
   const wa = (txt) => "https://wa.me/" + WA + "?text=" + encodeURIComponent(txt || "Bonjour Optic Alizé,");
   const page = location.pathname.split("/").pop() || "index.html";
   const lire = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } };

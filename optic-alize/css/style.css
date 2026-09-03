@@ -705,7 +705,8 @@ section { padding: var(--space-5) 0; }
 .product-cat { font-family: var(--font-mono); font-size: 0.7rem; color: var(--turquoise-fonce); text-transform: uppercase; letter-spacing: 0.08em; }
 .product-name { font-family: var(--font-display); font-size: 1.15rem; margin: 0; }
 .product-desc { font-size: 0.85rem; color: var(--nuage); margin: 0 0 8px; }
-.product-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; }
+.product-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.product-foot > .btn:only-child { width: 100%; }
 .product-price { font-family: var(--font-mono); font-weight: 500; font-size: 1.05rem; }
 .color-dots { display: flex; gap: 5px; margin-top: 6px; }
 .color-dot { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--ligne); }
