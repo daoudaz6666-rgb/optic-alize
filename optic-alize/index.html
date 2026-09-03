@@ -68,9 +68,7 @@
 </header>
 
 <section class="hero">
-  <video class="hero-video" autoplay muted loop playsinline preload="auto">
-    <source src="hero-bg.mp4" type="video/mp4">
-  </video>
+  <div class="hero-collage" id="hero-collage" aria-hidden="true"></div>
   <div class="hero-overlay"></div>
   <div class="container hero-grid">
     <div>
@@ -124,7 +122,7 @@ notre priorité !"></span><span class="tw-caret" aria-hidden="true"></span>
     </div>
     <div class="cat-grid">
       <div class="cat-card reveal">
-        <img class="cat-media" src="univers-vue.jpg" alt="Homme portant des lunettes de vue" loading="lazy" style="object-position:50% 15%">
+        <img class="cat-media" src="univers-vue.jpg" alt="Homme portant des lunettes de vue" loading="lazy">
         <div class="cat-body">
           <h3>Lunettes de vue</h3>
           <p>Des centaines de montures pour femme, homme et enfant, toutes formes et tous budgets.</p>
@@ -132,7 +130,7 @@ notre priorité !"></span><span class="tw-caret" aria-hidden="true"></span>
         </div>
       </div>
       <div class="cat-card reveal">
-        <img class="cat-media" src="univers-soleil.jpg" alt="Femme portant des lunettes de soleil" loading="lazy" style="object-position:50% 28%">
+        <img class="cat-media" src="univers-soleil.jpg" alt="Femme portant des lunettes de soleil" loading="lazy">
         <div class="cat-body">
           <h3>Lunettes de soleil</h3>
           <p>Protection UV400 et verres polarisés, pour affronter le soleil de Ouaga avec style.</p>
@@ -140,7 +138,7 @@ notre priorité !"></span><span class="tw-caret" aria-hidden="true"></span>
         </div>
       </div>
       <div class="cat-card reveal">
-        <img class="cat-media" src="univers-lentilles.jpg" alt="Jeune femme portant des lunettes rondes" loading="lazy" style="object-position:50% 45%">
+        <img class="cat-media" src="univers-lentilles.jpg" alt="Jeune femme portant des lunettes rondes" loading="lazy">
         <div class="cat-body">
           <h3>Lentilles de contact</h3>
           <p>Journalières, mensuelles, pour myopie, astigmatie ou presbytie : trouvez votre correction.</p>
@@ -327,6 +325,29 @@ notre priorité !"></span><span class="tw-caret" aria-hidden="true"></span>
 <script src="js/favoris.js"></script>
 <script src="js/main.js"></script>
 <script>
+  /* Fond d'accueil : mur de photos qui défilent en colonnes.
+     Images entières (non recadrées), boucle sans couture (jeu dupliqué). */
+  (function heroCollage() {
+    const wrap = document.getElementById("hero-collage");
+    if (!wrap) return;
+    const photos = ["1", "2", "3", "4", "5", "6", "7"].map((n) => `hero/${n}.jpg`);
+    const nbCols = 3;
+    for (let c = 0; c < nbCols; c++) {
+      const col = document.createElement("div");
+      col.className = "hero-col hero-col--" + (c % 2 ? "down" : "up");
+      // ordre décalé par colonne pour éviter l'alignement
+      const base = photos.slice(c * 2).concat(photos.slice(0, c * 2));
+      base.concat(base).forEach((src, k) => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = "";
+        img.loading = c === 0 && k < base.length ? "eager" : "lazy";
+        col.appendChild(img);
+      });
+      wrap.appendChild(col);
+    }
+  })();
+
   const featured = PRODUITS.filter(p => p.categorie === "montures").slice(0, 8);
   document.getElementById("featured-grid").innerHTML = featured.map(p => `
     <div class="product-card">

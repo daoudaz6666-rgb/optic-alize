@@ -8,6 +8,9 @@ mobile_flutter/
 resources/
 scripts/
 collections/_sources/
+hero/_sources/
+connectees/_sources/
+actualites/_sources/
 
 # Fichiers projet / app, inutiles au site
 package.json
