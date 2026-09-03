@@ -1,0 +1,23 @@
+{
+  "appId": "bf.opticalize.app",
+  "appName": "Optic Alizé",
+  "webDir": "www",
+  "backgroundColor": "#F6F2EA",
+  "android": {
+    "allowMixedContent": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1200,
+      "launchAutoHide": true,
+      "backgroundColor": "#F6F2EA",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#F6F2EA"
+    }
+  }
+}

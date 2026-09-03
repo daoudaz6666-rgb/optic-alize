@@ -6,6 +6,17 @@
 <title>Mon compte | Optic Alizé</title>
 <meta name="description" content="Connectez-vous à votre compte Optic Alizé ou créez-en un pour suivre vos commandes, vos rendez-vous et vos favoris.">
 <link rel="icon" type="image/png" href="logo-optic-alize.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Optic Alizé">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Mon compte | Optic Alizé">
+<meta property="og:description" content="Connectez-vous à votre compte Optic Alizé ou créez-en un pour suivre vos commandes, vos rendez-vous et vos favoris.">
+<meta property="og:url" content="https://www.opticalize.com/compte.html">
+<meta property="og:image" content="https://www.opticalize.com/hero-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mon compte | Optic Alizé">
+<meta name="twitter:description" content="Connectez-vous à votre compte Optic Alizé ou créez-en un pour suivre vos commandes, vos rendez-vous et vos favoris.">
+<meta name="twitter:image" content="https://www.opticalize.com/hero-poster.jpg">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -37,7 +48,6 @@
       </div>
       <a href="conseils.html">Conseils</a>
       <a href="actualites.html">Actualités</a>
-      <a href="rendez-vous.html">Rendez-vous</a>
       <a href="a-propos.html">À propos</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -70,7 +80,7 @@
     <p class="who" data-who>Bonjour !</p>
     <p style="color:var(--nuage); margin-bottom:24px;">Connecté avec <strong data-email></strong></p>
     <div style="display:flex; gap:12px; flex-wrap:wrap;">
-      <a href="rendez-vous.html" class="btn btn-primary btn-sm">Prendre rendez-vous</a>
+      <a href="contact.html?tab=rdv" class="btn btn-primary btn-sm">Prendre rendez-vous</a>
       <a href="panier.html" class="btn btn-outline btn-sm">Mon panier</a>
       <button type="button" id="btn-logout" class="btn btn-outline btn-sm">Se déconnecter</button>
     </div>
@@ -201,8 +211,9 @@
         <li><a href="conseils.html">Conseils</a></li>
         <li><a href="actualites.html">Actualit&eacute;s</a></li>
         <li><a href="a-propos.html">&Agrave; propos</a></li>
-        <li><a href="rendez-vous.html">Rendez-vous</a></li>
+        <li><a href="contact.html?tab=rdv">Rendez-vous</a></li>
         <li><a href="compte.html">Mon compte</a></li>
+        <li><a href="favoris.html">Mes favoris</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -231,7 +242,9 @@
 <script src="js/panier.js"></script>
 <script src="js/compte.js"></script>
 <script src="js/widgets.js"></script>
+<script src="js/marketing.js" defer></script>
 <script src="js/megamenu.js"></script>
+<script src="js/favoris.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

@@ -19,7 +19,7 @@ const OFFRES = [
     titre: "Pack Duo : la 2ᵉ paire offerte",
     texte:
       "Deux paires de lunettes pour le prix d'une : une pour vos activités, une pour vous faire plaisir. Économique, avec la même qualité optique.",
-    cta: { label: "Prendre rendez-vous", href: "rendez-vous.html" },
+    cta: { label: "Prendre rendez-vous", href: "contact.html?tab=rdv" },
   },
   {
     image: "offres/jours-prestiges.jpg",
@@ -33,7 +33,7 @@ const OFFRES = [
     titre: "Test visuel gratuit",
     texte:
       "Votre vision est floue ? Passez faire votre test visuel gratuitement dans l'une de nos agences de Ouagadougou, Bobo-Dioulasso ou Koudougou.",
-    cta: { label: "Réserver mon test", href: "rendez-vous.html" },
+    cta: { label: "Réserver mon test", href: "contact.html?tab=rdv" },
   },
   {
     image: "offres/entretien-promo.jpg",
@@ -111,7 +111,7 @@ const ACTUALITES = [
     titre: "Votre vision, notre priorité",
     texte:
       "Chez Optic Alizé, nous vous proposons des solutions visuelles adaptées à votre style de vie et à vos exigences. Passez nous voir dans l'une de nos agences.",
-    cta: { label: "Prendre rendez-vous", href: "rendez-vous.html" },
+    cta: { label: "Prendre rendez-vous", href: "contact.html?tab=rdv" },
   },
   {
     image: "actualites/monture-parfaite.jpg",

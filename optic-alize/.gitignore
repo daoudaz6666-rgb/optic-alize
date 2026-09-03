@@ -1,0 +1,15 @@
+node_modules/
+www/
+android/
+ios/
+*.apk
+*.aab
+android/local.properties
+.gradle/
+.DS_Store
+
+# App Flutter (1,7 Go — ne pas versionner)
+mobile_flutter/
+
+# Vercel
+.vercel/

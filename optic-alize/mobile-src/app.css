@@ -1,0 +1,37 @@
+/* ============================================================
+   OPTIC ALIZÉ — ajustements propres à l'application mobile
+   (chargé après style.css uniquement dans la version app)
+   ============================================================ */
+
+body {
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+/* Encoche / barre de statut : on décale l'en-tête collant */
+.site-header {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Barre de navigation gestuelle en bas */
+.site-footer {
+  padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+}
+.fab,
+.fab-chat,
+.chatbox {
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Le poster hero se comporte comme l'ancienne vidéo */
+img.hero-video {
+  display: block;
+}
+
+/* Pas de sélection de texte accidentelle sur les cartes tactiles */
+.product-card,
+.nav-sub-tab,
+.collection-tile {
+  -webkit-user-select: none;
+  user-select: none;
+}

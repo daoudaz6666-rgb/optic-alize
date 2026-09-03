@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const MENU = [
-    { label: "Prendre rendez-vous", action: () => { bulle('Vous pouvez réserver un créneau ici : <a href="rendez-vous.html">Prendre rendez-vous</a>.'); menu(); } },
+    { label: "Prendre rendez-vous", action: () => { bulle('Vous pouvez réserver un créneau ici : <a href="contact.html?tab=rdv">Prendre rendez-vous</a>.'); menu(); } },
     { label: "Où sont vos agences ?", action: () => { bulle("Optic Alizé, c'est plus de 11 agences à Ouagadougou, Bobo-Dioulasso et Koudougou. La carte est sur la page <a href='contact.html'>Contact</a>."); menu(); } },
     { label: "Voir les offres", action: () => { bulle('Nos promotions du moment : <a href="offres.html">Nos offres</a>.'); menu(); } },
     { label: "Suivi de ma commande", action: () => { bulle(`Donnez-nous votre nom et votre numéro de commande sur WhatsApp, on vous répond vite : <a href="${waLien('Bonjour, je souhaite suivre ma commande.')}" target="_blank" rel="noopener">Ouvrir WhatsApp</a>.`); menu(); } },

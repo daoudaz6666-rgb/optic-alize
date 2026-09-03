@@ -59,6 +59,7 @@
   function newsletter() { return lire("optic-alize-newsletter", []); }
   function comptes() { return lire("optic-alize-comptes", []); }
   function chatLog() { return lire("optic-alize-chat", []); }
+  function rappels() { return lire("optic-alize-rappels", []); }
 
   function tousEmails() {
     var map = {};
@@ -182,6 +183,7 @@
     { k: "verres", l: "Verres" },
     { k: "visiteurs", l: "Visiteurs" },
     { k: "emails", l: "E-mails" },
+    { k: "marketing", l: "Marketing" },
   ];
 
   function rendre(onglet) {
@@ -218,6 +220,7 @@
     else if (onglet === "verres") vueVerres(c);
     else if (onglet === "visiteurs") vueVisiteurs(c);
     else if (onglet === "emails") vueEmails(c);
+    else if (onglet === "marketing") vueMarketing(c);
   }
 
   /* ============================================================
@@ -524,6 +527,74 @@
       var adrs = liste.map(function (e) { return e.email; }).join(",");
       var sujet = encodeURIComponent("Optic Alize - nos actualites");
       var corps = encodeURIComponent("Bonjour,\n\n[votre message]\n\nL'equipe Optic Alize");
+      window.location.href = "mailto:?bcc=" + adrs + "&subject=" + sujet + "&body=" + corps;
+    });
+  }
+
+  /* ============================================================
+     MARKETING & RELATION CLIENT
+     ============================================================ */
+  function vueMarketing(c) {
+    var st = statsVisite();
+    var clics = st.clics || {};
+    var rap = rappels().slice().sort(function (a, b) { return (a.echeance || "").localeCompare(b.echeance || ""); });
+    var aujourdhui = new Date().toISOString().slice(0, 10);
+    var echus = rap.filter(function (r) { return (r.echeance || "") <= aujourdhui; });
+    var srcEmails = {};
+    tousEmails().forEach(function (e) { srcEmails[e.source] = (srcEmails[e.source] || 0) + 1; });
+
+    var cartes = [
+      { l: "Clics WhatsApp", v: clics.whatsapp || 0 },
+      { l: "Clics téléphone", v: clics.telephone || 0 },
+      { l: "Clics « Rendez-vous »", v: clics["rendez-vous"] || 0 },
+      { l: "Inscriptions pop-up", v: clics["inscription-popup"] || 0 },
+      { l: "Rappels programmés", v: rap.length },
+      { l: "Rappels à relancer", v: echus.length },
+    ];
+
+    c.innerHTML =
+      '<div class="ad-head"><h1>Marketing <span>relation client</span></h1>' +
+      '<div class="ad-actions">' +
+      (rap.length ? '<button class="ad-btn" data-csv-rap>Exporter les rappels (CSV)</button>' : "") +
+      (echus.length ? '<button class="ad-btn ad-btn--primary" data-relance-rap>Relancer les ' + echus.length + ' rappel(s) échu(s)</button>' : "") +
+      "</div></div>" +
+      '<div class="ad-note">Suivi local (ce navigateur) : clics sur les boutons de contact, inscriptions au pop-up de bienvenue et rappels de contrôle de vue. ' +
+      'Pour des chiffres agrégés sur tous les visiteurs, renseignez <code>ga4Id</code> ou <code>metaPixelId</code> dans <code>js/marketing.js</code>.</div>' +
+      '<div class="ad-cards">' +
+      cartes.map(function (k) {
+        return '<div class="ad-card"><span class="ad-card-v">' + k.v + '</span><span class="ad-card-l">' + esc(k.l) + "</span></div>";
+      }).join("") +
+      "</div>" +
+      '<div class="ad-charts">' +
+      barres("Origine des e-mails collectés", Object.keys(srcEmails).map(function (k) { return { l: k, v: srcEmails[k] }; })) +
+      barres("Interactions par type", [
+        { l: "whatsapp", v: clics.whatsapp || 0 },
+        { l: "telephone", v: clics.telephone || 0 },
+        { l: "email", v: clics.email || 0 },
+        { l: "rendez-vous", v: clics["rendez-vous"] || 0 },
+        { l: "rappel-vue", v: clics["rappel-vue"] || 0 },
+      ]) +
+      "</div>" +
+      '<h3 style="margin:28px 0 14px;">Rappels de contrôle de vue</h3>' +
+      (rap.length
+        ? '<div class="ad-table-wrap"><table class="ad-table"><thead><tr><th>E-mail</th><th>Échéance</th><th>Programmé le</th><th>Statut</th></tr></thead><tbody>' +
+          rap.map(function (r) {
+            var echu = (r.echeance || "") <= aujourdhui;
+            return "<tr><td>" + esc(r.email) + "</td><td>" + esc(r.echeance || "") + "</td><td>" + esc(r.cree || "") +
+              '</td><td>' + (echu ? '<b style="color:var(--corail)">À relancer</b>' : "En attente") + "</td></tr>";
+          }).join("") +
+          "</tbody></table></div>"
+        : '<p class="ad-empty">Aucun rappel programmé pour le moment.</p>');
+
+    var csv = c.querySelector("[data-csv-rap]");
+    if (csv) csv.addEventListener("click", function () {
+      telecharger("rappels-optic-alize.csv", toCSV(rap, ["email", "echeance", "cree"]), "text/csv");
+    });
+    var rl = c.querySelector("[data-relance-rap]");
+    if (rl) rl.addEventListener("click", function () {
+      var adrs = echus.map(function (r) { return r.email; }).join(",");
+      var sujet = encodeURIComponent("Optic Alize - il est temps de controler votre vue");
+      var corps = encodeURIComponent("Bonjour,\n\nCela fait un moment que nous n'avons pas verifie votre vue. Prenez rendez-vous dans l'une de nos agences : nous vous accueillons du lundi au samedi.\n\nL'equipe Optic Alize");
       window.location.href = "mailto:?bcc=" + adrs + "&subject=" + sujet + "&body=" + corps;
     });
   }

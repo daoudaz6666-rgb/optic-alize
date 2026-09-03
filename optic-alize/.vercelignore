@@ -1,0 +1,28 @@
+# Dossiers hors site web (app mobile, build, outils)
+node_modules/
+android/
+ios/
+www/
+mobile-src/
+mobile_flutter/
+resources/
+scripts/
+collections/_sources/
+
+# Fichiers projet / app, inutiles au site
+package.json
+package-lock.json
+capacitor.config.json
+APP-FLUTTER.md
+APP-MOBILE.md
+*.md
+*.py
+
+# Captures d'écran / sources lourdes
+Capture d'écran *.png
+logo-optic-alize.jpg
+
+# Divers
+.claude/
+.vscode/
+.gitignore

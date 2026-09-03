@@ -6,6 +6,17 @@
 <title>Lunettes connectées | Optic Alizé</title>
 <meta name="description" content="Lunettes connectées chez Optic Alizé : lunettes audio, montures compatibles avec vos verres correcteurs. Renseignez-vous en agence.">
 <link rel="icon" type="image/png" href="logo-optic-alize.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Optic Alizé">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Lunettes connectées | Optic Alizé">
+<meta property="og:description" content="Lunettes connectées chez Optic Alizé : lunettes audio, montures compatibles avec vos verres correcteurs. Renseignez-vous en agence.">
+<meta property="og:url" content="https://www.opticalize.com/connectees.html">
+<meta property="og:image" content="https://www.opticalize.com/hero-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lunettes connectées | Optic Alizé">
+<meta name="twitter:description" content="Lunettes connectées chez Optic Alizé : lunettes audio, montures compatibles avec vos verres correcteurs. Renseignez-vous en agence.">
+<meta name="twitter:image" content="https://www.opticalize.com/hero-poster.jpg">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -37,7 +48,6 @@
       </div>
       <a href="conseils.html">Conseils</a>
       <a href="actualites.html">Actualités</a>
-      <a href="rendez-vous.html">Rendez-vous</a>
       <a href="a-propos.html">À propos</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -56,15 +66,46 @@
   </div>
 </header>
 
-<div class="page-header container">
-  <div class="breadcrumb"><a href="index.html">Accueil</a> / Lunettes connectées</div>
-  <span class="eyebrow">Nouveau</span>
-  <h1>Lunettes connectées</h1>
-  <p class="lede">Des lunettes qui font plus que corriger la vue : son, assistance, protection intelligente. Un rayon qui se développe chez Optic Alizé.</p>
-</div>
+<section class="page-hero">
+  <img src="connectees/hero.jpg" alt="Lunettes connectées" onerror="this.remove()">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> / Lunettes connectées</div>
+    <span class="eyebrow">Nouveau</span>
+    <h1>Lunettes connectées</h1>
+    <p class="lede">Des lunettes qui font plus que corriger la vue : son, assistance, protection intelligente. Un rayon qui se développe chez Optic Alizé.</p>
+  </div>
+</section>
 
-<div class="container" style="padding-bottom:80px;">
-  <div class="value-grid">
+<div class="container" style="padding:48px 24px 80px;">
+
+  <div class="tech-grid">
+    <article class="tech-card reveal">
+      <span class="tech-media">
+        <img src="connectees/audio.jpg" alt="Lunettes audio"
+          onerror="this.closest('.tech-media').classList.add('tech-media--ph');this.replaceWith(Object.assign(document.createElement('span'),{innerHTML:'&#127911;'}));">
+      </span>
+      <h3>Lunettes audio</h3>
+      <p>Haut-parleurs intégrés dans les branches : musique, podcasts et appels sans écouteurs, tout en gardant vos verres correcteurs.</p>
+    </article>
+    <article class="tech-card reveal">
+      <span class="tech-media">
+        <img src="connectees/assistant.jpg" alt="Lunettes avec assistant vocal"
+          onerror="this.closest('.tech-media').classList.add('tech-media--ph');this.replaceWith(Object.assign(document.createElement('span'),{innerHTML:'&#128172;'}));">
+      </span>
+      <h3>Assistant &amp; notifications</h3>
+      <p>Commande vocale, itinéraires et rappels discrets, directement à l'oreille — pratique au volant ou à vélo.</p>
+    </article>
+    <article class="tech-card reveal">
+      <span class="tech-media">
+        <img src="connectees/lumiere.jpg" alt="Verres à teinte automatique"
+          onerror="this.closest('.tech-media').classList.add('tech-media--ph');this.replaceWith(Object.assign(document.createElement('span'),{innerHTML:'&#9728;&#65039;'}));">
+      </span>
+      <h3>Teinte électronique</h3>
+      <p>Des verres qui s'assombrissent d'une simple pression, plus vite qu'un photochromique classique. Idéal en extérieur.</p>
+    </article>
+  </div>
+
+  <div class="value-grid" style="margin-top:64px;">
     <div class="value-item reveal">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12a8 8 0 0 1 16 0"/><rect x="2" y="12" width="4" height="7" rx="1.5"/><rect x="18" y="12" width="4" height="7" rx="1.5"/></svg>
       <h4>Lunettes audio</h4>
@@ -88,7 +129,7 @@
       <h3 style="margin-bottom:4px;">Intéressé·e par les lunettes connectées ?</h3>
       <p style="margin:0;">Parlez-en à un opticien Optic Alizé : nous vous conseillons le modèle adapté à votre usage et à votre vue.</p>
     </div>
-    <a href="rendez-vous.html" class="btn btn-accent btn-sm">Prendre rendez-vous</a>
+    <a href="contact.html?tab=rdv" class="btn btn-accent btn-sm">Prendre rendez-vous</a>
   </div>
 </div>
 
@@ -134,8 +175,9 @@
         <li><a href="conseils.html">Conseils</a></li>
         <li><a href="actualites.html">Actualit&eacute;s</a></li>
         <li><a href="a-propos.html">&Agrave; propos</a></li>
-        <li><a href="rendez-vous.html">Rendez-vous</a></li>
+        <li><a href="contact.html?tab=rdv">Rendez-vous</a></li>
         <li><a href="compte.html">Mon compte</a></li>
+        <li><a href="favoris.html">Mes favoris</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -163,7 +205,9 @@
 <script src="js/produits.js"></script>
 <script src="js/panier.js"></script>
 <script src="js/widgets.js"></script>
+<script src="js/marketing.js" defer></script>
 <script src="js/megamenu.js"></script>
+<script src="js/favoris.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

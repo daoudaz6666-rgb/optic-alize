@@ -1,0 +1,27 @@
+{
+  "name": "optic-alize-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Application mobile Optic Alizé (Capacitor) — coquille native du site vitrine",
+  "type": "module",
+  "scripts": {
+    "build:www": "node scripts/build-www.mjs",
+    "assets": "capacitor-assets generate --android",
+    "sync": "npm run build:www && npx cap sync android",
+    "open:android": "npx cap open android",
+    "apk:debug": "npm run sync && node scripts/gradle.mjs assembleDebug",
+    "apk:release": "npm run sync && node scripts/gradle.mjs assembleRelease"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/app": "^6.0.2",
+    "@capacitor/browser": "^6.0.4",
+    "@capacitor/core": "^6.2.0",
+    "@capacitor/splash-screen": "^6.0.3",
+    "@capacitor/status-bar": "^6.0.2"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^6.2.0"
+  }
+}

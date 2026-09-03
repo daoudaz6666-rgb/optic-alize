@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>À propos | Optic Alizé</title>
 <link rel="icon" type="image/png" href="logo-optic-alize.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Optic Alizé">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="À propos | Optic Alizé">
+<meta property="og:description" content="">
+<meta property="og:url" content="https://www.opticalize.com/a-propos.html">
+<meta property="og:image" content="https://www.opticalize.com/hero-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="À propos | Optic Alizé">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://www.opticalize.com/hero-poster.jpg">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -36,7 +47,6 @@
       </div>
       <a href="conseils.html">Conseils</a>
       <a href="actualites.html">Actualités</a>
-      <a href="rendez-vous.html">Rendez-vous</a>
       <a href="a-propos.html" class="active">À propos</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -61,7 +71,16 @@
   </video>
   <div class="hero-overlay"></div>
   <div class="container" style="position:relative; z-index:1; max-width:760px;">
-    <span class="eyebrow">Notre histoire</span>
+    <div class="hero-cred">
+      <span class="hero-cred-item hero-cred-main">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg>
+        1<sup>er</sup> réseau d'optique au Burkina&nbsp;Faso <b>·&nbsp;depuis&nbsp;2005</b>
+      </span>
+      <span class="hero-cred-item hero-cred-iso">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.4 7.7 8 9 4.6-1.3 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
+        Montures &amp; verres certifiés ISO&nbsp;13485
+      </span>
+    </div>
     <h1>Un opticien de quartier, à l'écoute de votre vue.</h1>
     <p class="lede" style="max-width:60ch;">Optic Alizé est né à Ouagadougou d'une conviction simple : bien voir ne devrait jamais être compliqué. Aujourd'hui, c'est un réseau de plus de 11 agences à Ouagadougou, Bobo-Dioulasso et Koudougou — mais la même exigence à chaque rendez-vous : écouter, mesurer, ajuster jusqu'à ce que votre correction soit exactement au point.</p>
   </div>
@@ -114,7 +133,7 @@
       <iframe src="https://www.google.com/maps?q=Optic%20Aliz%C3%A9%2C%20Burkina%20Faso&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Carte des agences Optic Alizé" allowfullscreen></iframe>
     </div>
     <div style="margin-top:20px;">
-      <a href="rendez-vous.html" class="btn btn-accent btn-sm">Prendre rendez-vous</a>
+      <a href="contact.html?tab=rdv" class="btn btn-accent btn-sm">Prendre rendez-vous</a>
     </div>
   </div>
 </div>
@@ -161,8 +180,9 @@
         <li><a href="conseils.html">Conseils</a></li>
         <li><a href="actualites.html">Actualit&eacute;s</a></li>
         <li><a href="a-propos.html">&Agrave; propos</a></li>
-        <li><a href="rendez-vous.html">Rendez-vous</a></li>
+        <li><a href="contact.html?tab=rdv">Rendez-vous</a></li>
         <li><a href="compte.html">Mon compte</a></li>
+        <li><a href="favoris.html">Mes favoris</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -191,7 +211,9 @@
 <script src="js/panier.js"></script>
 <script src="js/equipe.js"></script>
 <script src="js/widgets.js"></script>
+<script src="js/marketing.js" defer></script>
 <script src="js/megamenu.js"></script>
+<script src="js/favoris.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

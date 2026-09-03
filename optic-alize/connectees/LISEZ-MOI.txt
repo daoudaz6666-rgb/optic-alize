@@ -1,0 +1,13 @@
+IMAGES — LUNETTES CONNECTÉES
+============================
+
+Déposez ici les photos suivantes (format paysage, ~1000 x 700 px, < 200 Ko).
+Tant qu'un fichier est absent, la page affiche un dégradé + une icône à la place.
+
+  hero.jpg        bannière en haut de la page (large, ~1600 x 600 px)
+  audio.jpg       lunettes audio (haut-parleurs dans les branches)
+  assistant.jpg   lunettes avec assistant vocal / notifications
+  lumiere.jpg     verres à teinte électronique / automatique
+
+Astuce : après avoir ajouté ou remplacé une image, il n'y a rien à
+relancer — il suffit de recharger la page (Ctrl + Maj + R).

@@ -31,7 +31,7 @@
         { t: "Par genre", l: [["Femme", "montures.html?genre=femme"], ["Homme", "montures.html?genre=homme"], ["Enfant", "montures.html?genre=enfant"]] },
         { t: "Par forme", shapes: 1, l: [["Ovale", "montures.html?forme=ovale"], ["Carrée", "montures.html?forme=carre"], ["Ronde", "montures.html?forme=ronde"], ["Papillon", "montures.html?forme=papillon"], ["Pilote", "montures.html?forme=pilote"]] },
         { t: "Nos marques", l: [["Optic Alizé", "montures.html"], ["Ray-Ban", "montures.html"], ["Gucci", "montures.html"], ["Hugo Boss", "montures.html"], ["Cartier", "montures.html"], ["Chloé", "montures.html"], ["Persol", "montures.html"], ["Marc Jacobs", "montures.html"]] },
-        { t: "Et aussi", l: [["Comment choisir sa monture", "conseils.html"], ["Nos verres correcteurs", "verres.html"], ["Lunettes de soleil", "montures.html?type=soleil"], ["Prendre rendez-vous", "rendez-vous.html"]] },
+        { t: "Et aussi", l: [["Comment choisir sa monture", "conseils.html"], ["Nos verres correcteurs", "verres.html"], ["Lunettes de soleil", "montures.html?type=soleil"], ["Prendre rendez-vous", "contact.html?tab=rdv"]] },
       ],
       img: ["univers-vue.jpg", "Nos montures pour toute la famille"],
     },
@@ -41,7 +41,7 @@
         { t: "Par genre", l: [["Femme", "montures.html?type=vue&genre=femme"], ["Homme", "montures.html?type=vue&genre=homme"], ["Enfant", "montures.html?type=vue&genre=enfant"]] },
         { t: "Par forme", shapes: 1, l: [["Ovale", "montures.html?type=vue&forme=ovale"], ["Carrée", "montures.html?type=vue&forme=carre"], ["Ronde", "montures.html?type=vue&forme=ronde"], ["Papillon", "montures.html?type=vue&forme=papillon"]] },
         { t: "Vos verres", l: [["Verres unifocaux", "verres.html"], ["Verres progressifs", "verres.html"], ["Anti-lumière bleue", "verres.html"], ["Verres amincis", "verres.html"]] },
-        { t: "Et aussi", l: [["Examen de vue offert", "rendez-vous.html"], ["Les types de verres", "verres.html"], ["Nos conseils", "conseils.html"]] },
+        { t: "Et aussi", l: [["Examen de vue offert", "contact.html?tab=rdv"], ["Les types de verres", "verres.html"], ["Nos conseils", "conseils.html"]] },
       ],
       img: ["univers-vue.jpg", "Lunettes de vue"],
     },
@@ -60,7 +60,7 @@
       cols: [
         { t: "Corrections", l: [["Verres unifocaux", "verres.html"], ["Verres progressifs", "verres.html"], ["Verres amincis", "verres.html"]] },
         { t: "Traitements", l: [["Anti-lumière bleue", "verres.html"], ["Antireflet & anti-rayures", "verres.html"], ["Photochromiques", "verres.html"], ["Polarisés", "verres.html"], ["Teintés solaires", "verres.html"]] },
-        { t: "Et aussi", l: [["Comment choisir ses verres", "verres.html"], ["Entretien des verres", "conseils.html"], ["Prendre rendez-vous", "rendez-vous.html"]] },
+        { t: "Et aussi", l: [["Comment choisir ses verres", "verres.html"], ["Entretien des verres", "conseils.html"], ["Prendre rendez-vous", "contact.html?tab=rdv"]] },
       ],
       img: ["univers-lentilles.jpg", "Le verre fait la moitié de vos lunettes"],
     },
@@ -69,7 +69,7 @@
       cols: [
         { t: "Par fréquence", l: [["Journalières", "lentilles.html?frequence=journaliere"], ["Mensuelles", "lentilles.html?frequence=mensuelle"]] },
         { t: "Par correction", l: [["Myopie", "lentilles.html?correction=myopie"], ["Hypermétropie", "lentilles.html?correction=hypermetropie"], ["Astigmatie", "lentilles.html?correction=astigmatie"], ["Presbytie", "lentilles.html?correction=presbytie"]] },
-        { t: "Et aussi", l: [["Adaptation de lentilles", "rendez-vous.html"], ["Entretien des lentilles", "conseils.html"], ["Nous contacter", "contact.html"]] },
+        { t: "Et aussi", l: [["Adaptation de lentilles", "contact.html?tab=rdv"], ["Entretien des lentilles", "conseils.html"], ["Nous contacter", "contact.html"]] },
       ],
       img: ["univers-lentilles.jpg", "Lentilles de contact"],
     },
@@ -78,7 +78,7 @@
       cols: [
         { t: "Types", l: [["Lunettes audio", "connectees.html"], ["Montures compatibles", "connectees.html"], ["Sur commande", "connectees.html"]] },
         { t: "À votre vue", l: [["Verres unifocaux", "verres.html"], ["Verres progressifs", "verres.html"], ["Anti-lumière bleue", "verres.html"]] },
-        { t: "Et aussi", l: [["Prendre rendez-vous", "rendez-vous.html"], ["Nos conseils", "conseils.html"], ["Nous contacter", "contact.html"]] },
+        { t: "Et aussi", l: [["Prendre rendez-vous", "contact.html?tab=rdv"], ["Nos conseils", "conseils.html"], ["Nous contacter", "contact.html"]] },
       ],
       img: ["univers-soleil.jpg", "Des lunettes qui font plus que voir"],
     },
@@ -96,7 +96,7 @@
       cols: [
         { t: "En ce moment", l: [["Pack Duo : 2ᵉ paire offerte", "offres.html"], ["Jours Prestiges −50 %", "offres.html"], ["Test visuel gratuit", "offres.html"]] },
         { t: "Services inclus", l: [["Réglages gratuits à vie", "contact.html"], ["Réparations rapides", "contact.html"], ["Nettoyage professionnel", "contact.html"]] },
-        { t: "Et aussi", l: [["Nos conseils", "conseils.html"], ["Nos actualités", "actualites.html"], ["Prendre rendez-vous", "rendez-vous.html"]] },
+        { t: "Et aussi", l: [["Nos conseils", "conseils.html"], ["Nos actualités", "actualites.html"], ["Prendre rendez-vous", "contact.html?tab=rdv"]] },
       ],
       img: ["univers-soleil.jpg", "Nos offres du moment"],
     },

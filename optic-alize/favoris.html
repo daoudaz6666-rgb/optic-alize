@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prendre rendez-vous | Optic Alizé</title>
-<meta name="description" content="Prenez rendez-vous avec un opticien Optic Alizé dans l'une de nos 11+ agences à Ouagadougou, Bobo-Dioulasso ou Koudougou : examen de vue, essayage ou conseil personnalisé.">
+<title>Mes favoris | Optic Alizé</title>
+<meta name="description" content="Retrouvez les montures et lentilles Optic Alizé que vous avez mises en favori.">
+<meta name="robots" content="noindex">
 <link rel="icon" type="image/png" href="logo-optic-alize.png">
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -37,7 +38,6 @@
       </div>
       <a href="conseils.html">Conseils</a>
       <a href="actualites.html">Actualités</a>
-      <a href="rendez-vous.html" class="active">Rendez-vous</a>
       <a href="a-propos.html">À propos</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -57,67 +57,24 @@
 </header>
 
 <div class="page-header container">
-  <div class="breadcrumb"><a href="index.html">Accueil</a> / Rendez-vous</div>
-  <span class="eyebrow">Rendez-vous</span>
-  <h1>Prenons rendez-vous</h1>
-  <p class="lede">Examen de vue, essayage de montures ou adaptation de lentilles : dites-nous ce qu'il vous faut, nous confirmons votre créneau par WhatsApp ou par téléphone.</p>
+  <div class="breadcrumb"><a href="index.html">Accueil</a> / Mes favoris</div>
+  <span class="eyebrow">Liste d'envies</span>
+  <h1>Mes favoris</h1>
+  <p class="lede">Les montures et lentilles que vous avez mises de côté. Elles restent enregistrées sur cet appareil.</p>
 </div>
 
 <div class="container" style="padding-bottom:80px;">
-  <div style="display:grid; grid-template-columns: 1.3fr 1fr; gap:48px; align-items:flex-start;">
-    <form id="rdv-form" class="reveal in-view">
-      <div class="form-grid">
-        <div class="form-field">
-          <label for="nom">Nom complet *</label>
-          <input type="text" id="nom" required>
-        </div>
-        <div class="form-field">
-          <label for="tel">Téléphone *</label>
-          <input type="tel" id="tel" required placeholder="+226 75 09 39 39">
-        </div>
-        <div class="form-field">
-          <label for="motif">Motif du rendez-vous *</label>
-          <select id="motif" required>
-            <option value="">Choisir…</option>
-            <option>Examen de vue</option>
-            <option>Essayage de montures</option>
-            <option>Adaptation de lentilles</option>
-            <option>Réglage / réparation de lunettes</option>
-            <option>Autre</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label for="date">Date souhaitée *</label>
-          <input type="date" id="date" required>
-        </div>
-        <div class="form-field full">
-          <label for="creneau">Créneau préféré</label>
-          <select id="creneau">
-            <option value="">Peu importe</option>
-            <option>Matin (8h–12h)</option>
-            <option>Après-midi (14h–19h)</option>
-          </select>
-        </div>
-        <div class="form-field full">
-          <label for="msg">Message (optionnel)</label>
-          <textarea id="msg" rows="4" placeholder="Précisez votre besoin…"></textarea>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-accent btn-block">Envoyer la demande par WhatsApp</button>
-      <p class="form-note" style="margin-top:12px;">Votre demande est envoyée à la boutique via WhatsApp. Un opticien vous confirme le créneau dans les meilleurs délais.</p>
-    </form>
+  <div class="filters-bar">
+    <span class="result-count" id="favoris-count"></span>
+  </div>
 
-    <div class="store-card reveal in-view" style="flex-direction:column; align-items:flex-start; gap:16px;">
-      <div>
-        <h3>Optic Alizé — nos agences</h3>
-        <p>Plus de 11 agences à Ouagadougou, Bobo-Dioulasso et Koudougou</p>
-        <p>Lundi – Samedi : 8h – 19h</p>
-        <p>+226 75 09 39 39</p>
-      </div>
-      <div class="map-embed" style="width:100%;">
-        <iframe src="https://www.google.com/maps?q=Optic%20Aliz%C3%A9%2C%20Burkina%20Faso&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Carte des agences Optic Alizé" allowfullscreen></iframe>
-      </div>
-    </div>
+  <div class="product-grid" id="favoris-grid"></div>
+
+  <div class="favoris-empty" id="favoris-vide" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+    <h3>Aucun favori pour l'instant</h3>
+    <p>Parcourez le catalogue et touchez le cœur sur une monture pour la retrouver ici.</p>
+    <a href="montures.html" class="btn btn-primary btn-sm">Voir les montures</a>
   </div>
 </div>
 
@@ -163,8 +120,9 @@
         <li><a href="conseils.html">Conseils</a></li>
         <li><a href="actualites.html">Actualit&eacute;s</a></li>
         <li><a href="a-propos.html">&Agrave; propos</a></li>
-        <li><a href="rendez-vous.html">Rendez-vous</a></li>
+        <li><a href="contact.html?tab=rdv">Rendez-vous</a></li>
         <li><a href="compte.html">Mon compte</a></li>
+        <li><a href="favoris.html">Mes favoris</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -192,24 +150,9 @@
 <script src="js/produits.js"></script>
 <script src="js/panier.js"></script>
 <script src="js/widgets.js"></script>
+<script src="js/marketing.js" defer></script>
 <script src="js/megamenu.js"></script>
+<script src="js/favoris.js"></script>
 <script src="js/main.js"></script>
-<script>
-  document.getElementById("rdv-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const nom = document.getElementById("nom").value.trim();
-    const tel = document.getElementById("tel").value.trim();
-    const motif = document.getElementById("motif").value;
-    const date = document.getElementById("date").value;
-    const creneau = document.getElementById("creneau").value;
-    const msg = document.getElementById("msg").value.trim();
-
-    let texte = `Demande de rendez-vous — Optic Alizé\n\nNom : ${nom}\nTéléphone : ${tel}\nMotif : ${motif}\nDate souhaitée : ${date}`;
-    if (creneau) texte += `\nCréneau : ${creneau}`;
-    if (msg) texte += `\n\nMessage : ${msg}`;
-
-    window.open(`https://wa.me/${BOUTIQUE_WHATSAPP}?text=${encodeURIComponent(texte)}`, "_blank");
-  });
-</script>
 </body>
 </html>
