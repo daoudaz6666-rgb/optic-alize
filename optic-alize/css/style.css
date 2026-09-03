@@ -670,7 +670,8 @@ section { padding: var(--space-5) 0; }
   color: var(--nuage);
   white-space: nowrap;
 }
-.partner-item img { height: 36px; width: auto; object-fit: contain; filter: grayscale(1); opacity: 0.75; }
+.partner-item img { height: 40px; width: auto; object-fit: contain; filter: grayscale(1); opacity: 0.72; transition: filter 0.25s ease, opacity 0.25s ease; }
+.partner-item:hover img { filter: grayscale(0); opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
   .marquee-row { animation: none; }
   .marquee { overflow-x: auto; }

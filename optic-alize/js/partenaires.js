@@ -3,31 +3,26 @@
 
    Édite le tableau PARTENAIRES ci-dessous.
    Champs par partenaire :
-     nom  : "Essilor"                     (obligatoire — sert aussi de texte de repli)
-     logo : "partenaires/essilor.svg"     (optionnel ; PNG ou SVG, fond transparent,
-                                            hauteur ~40 px ; sinon le nom s'affiche en texte)
+     nom  : "Ray-Ban"                  (obligatoire — sert aussi de texte de repli)
+     logo : "partners/ray-ban.jpg"     (optionnel ; sinon le nom s'affiche en texte)
 
-   ⚠️ Remplace ces noms par tes VRAIS partenaires (fournisseurs de
-   verres, marques de montures, labos lentilles…) et n'affiche que
-   des logos que tu es autorisé à utiliser.
+   ⚠️ N'affiche que des logos que tu es autorisé à utiliser
+   (marques réellement distribuées en agence).
 
-   Le bandeau se dédouble tout seul pour un défilement sans couture ;
-   la 1re ligne va vers la gauche, la 2e vers la droite.
+   Le bandeau se dédouble tout seul pour un défilement sans couture.
+   Une seule ligne.
    ============================================================ */
 
 const PARTENAIRES = [
-  { nom: "Essilor" },
-  { nom: "ZEISS" },
-  { nom: "Hoya" },
-  { nom: "Transitions" },
-  { nom: "Varilux" },
-  { nom: "Rodenstock" },
-  { nom: "Acuvue" },
-  { nom: "CooperVision" },
-  { nom: "Bausch + Lomb" },
-  { nom: "Alcon" },
-  { nom: "Ray-Ban" },
-  { nom: "Persol" },
+  { nom: "Ray-Ban", logo: "partners/ray-ban.jpg" },
+  { nom: "Gucci", logo: "partners/gucci.jpg" },
+  { nom: "Cartier", logo: "partners/cartier.jpg" },
+  { nom: "Christian Dior", logo: "partners/dior.jpg" },
+  { nom: "Burberry", logo: "partners/burberry.jpg" },
+  { nom: "Hugo Boss", logo: "partners/hugo-boss.jpg" },
+  { nom: "Marc Jacobs", logo: "partners/marc-jacobs.jpg" },
+  { nom: "Hermès", logo: "partners/hermes.jpg" },
+  { nom: "Maybach", logo: "partners/maybach.jpg" },
 ];
 
 function elementPartenaire(p) {
@@ -39,15 +34,9 @@ function elementPartenaire(p) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const r1 = document.getElementById("partners-row-1");
-  const r2 = document.getElementById("partners-row-2");
-  if (!r1 || !r2) return;
-
-  const milieu = Math.ceil(PARTENAIRES.length / 2);
-  const groupe1 = PARTENAIRES.slice(0, milieu).map(elementPartenaire).join("");
-  const groupe2 = PARTENAIRES.slice(milieu).map(elementPartenaire).join("");
-
+  const row = document.getElementById("partners-row-1");
+  if (!row) return;
+  const groupe = PARTENAIRES.map(elementPartenaire).join("");
   // répété pour remplir l'écran + boucle sans couture (l'animation décale de 50 %)
-  r1.innerHTML = groupe1.repeat(4);
-  r2.innerHTML = groupe2.repeat(4);
+  row.innerHTML = groupe.repeat(4);
 });
