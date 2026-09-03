@@ -1523,9 +1523,10 @@ section { padding: var(--space-5) 0; }
   border-radius: var(--radius);
   padding: var(--space-4);
 }
-.referral-in h2 { margin: 6px 0 8px; }
-.referral-in p { margin: 0; max-width: 46ch; color: rgba(246, 242, 234, 0.85); }
+.referral-in h2 { margin: 6px 0 8px; color: var(--blanc); }
+.referral-in p { margin: 0; max-width: 46ch; color: rgba(246, 242, 234, 0.9); }
 .referral-in .eyebrow { color: var(--or-clair); }
+.referral-in .eyebrow::before { background: var(--or-clair); }
 .referral-in .btn { white-space: nowrap; }
 
 /* --- Partage social --- */
