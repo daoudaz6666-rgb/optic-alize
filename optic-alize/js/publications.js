@@ -83,6 +83,20 @@ const CONSEILS = [
 
 const ACTUALITES = [
   {
+    image: "actualites/controle-vue-gratuit.jpg",
+    titre: "Contrôle de la vue gratuit — 0 FCFA",
+    texte:
+      "Bien voir, c'est profiter pleinement de son week-end. Faites contrôler votre vue gratuitement dans nos agences de Ouagadougou, Bobo-Dioulasso et Koudougou.",
+    cta: { label: "Prendre rendez-vous", href: "contact.html" },
+  },
+  {
+    image: "actualites/verres-sales.jpg",
+    titre: "Vos lunettes sont sales ? On s'en occupe gratuitement",
+    texte:
+      "Des verres sales fatiguent les yeux et réduisent le confort visuel. Passez en agence : nous nettoyons vos lunettes gratuitement, pour une vision nette chaque jour.",
+    cta: { label: "Nos conseils", href: "conseils.html" },
+  },
+  {
     image: "actualites/20ans-gateau.jpg",
     titre: "Optic Alizé fête ses 20 ans !",
     texte:

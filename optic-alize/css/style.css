@@ -1592,20 +1592,6 @@ section { padding: var(--space-5) 0; }
   .tech-grid { grid-template-columns: 1fr; }
 }
 
-/* ============ Carte des agences (Leaflet) ============ */
-.carte-agences {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--sable-fonce);
-}
-.carte-agences .leaflet-container { font-family: var(--font-body); }
-.agence-pin { background: none; border: none; }
-.agence-pin svg { filter: drop-shadow(0 3px 5px rgba(18, 48, 61, 0.35)); }
-.carte-agences .leaflet-popup-content { font-size: 0.9rem; line-height: 1.4; }
-.carte-agences .leaflet-popup-content a { color: var(--turquoise-fonce); font-weight: 600; }
-
 /* L'attribut hidden doit toujours l'emporter sur un display: flex/grid. */
 [hidden] { display: none !important; }
 
