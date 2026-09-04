@@ -423,11 +423,18 @@ document.addEventListener("DOMContentLoaded", () => {
     nl.addEventListener("submit", (e) => {
       e.preventDefault();
       const msg = nl.querySelector(".nl-msg");
-      const ok = enregistrerEmail(nl.querySelector("#nl-email").value, "newsletter");
+      const champ = nl.querySelector("#nl-email");
+      const val = champ.value;
+      const ok = enregistrerEmail(val, "newsletter");
       msg.hidden = false;
       msg.textContent = ok ? "Merci, vous êtes inscrit·e !" : "Adresse e-mail invalide.";
       msg.className = "nl-msg " + (ok ? "ok" : "err");
-      if (ok) nl.querySelector("#nl-email").value = "";
+      if (ok) {
+        champ.value = "";
+        if (typeof envoyerEmailSite === "function") {
+          envoyerEmailSite("Nouvel inscrit newsletter — Optic Alizé", { Type: "Newsletter", "E-mail": val });
+        }
+      }
     });
   }
 });

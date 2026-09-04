@@ -254,6 +254,8 @@ const MKT = {
           msg.hidden = false;
           if (ok) {
             trackClic("inscription-popup");
+            if (typeof envoyerEmailSite === "function")
+              envoyerEmailSite("Inscription pop-up (−10 %) — Optic Alizé", { Type: "Pop-up bienvenue", "E-mail": email, Code: MKT.popup.code });
             e.target.hidden = true;
             msg.className = "mkt-popup-msg ok";
             msg.innerHTML = "Merci ! Votre code : <strong>" + MKT.popup.code +
@@ -308,6 +310,8 @@ const MKT = {
         ecrire("optic-alize-rappels", liste);
         enrEmail(email, "rappel-vue");
         trackClic("rappel-vue");
+        if (typeof envoyerEmailSite === "function")
+          envoyerEmailSite("Rappel de contrôle de vue — Optic Alizé", { Type: "Rappel contrôle vue", "E-mail": email, "À relancer vers": d.toISOString().slice(0, 10) });
         f.hidden = true;
         msg.hidden = false; msg.className = "reminder-msg ok";
         msg.textContent = "C'est noté. Nous vous écrirons vers " +

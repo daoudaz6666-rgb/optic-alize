@@ -131,9 +131,9 @@
               <textarea id="c-msg" rows="5" required placeholder="Comment pouvons-nous vous aider ?"></textarea>
             </div>
           </div>
-          <button type="submit" class="btn btn-accent btn-block">Envoyer par WhatsApp</button>
-          <button type="button" id="c-email-btn" class="btn btn-outline btn-block" style="margin-top:10px;">Plutôt par e-mail</button>
-          <p class="form-note" style="margin-top:12px;">Votre message est transmis à la boutique. Un conseiller vous répond dans les meilleurs délais.</p>
+          <button type="submit" class="btn btn-accent btn-block">Envoyer le message</button>
+          <button type="button" id="c-email-btn" class="btn btn-outline btn-block" style="margin-top:10px;">Plutôt par WhatsApp</button>
+          <p class="form-note" style="margin-top:12px;">Votre message est envoyé par e-mail à la boutique. Un conseiller vous répond dans les meilleurs délais.</p>
         </form>
 
         <div id="contact-ok" class="store-card reveal in-view" hidden style="flex-direction:column; align-items:flex-start; gap:12px;">
@@ -189,9 +189,9 @@
               <textarea id="msg" rows="4" placeholder="Précisez votre besoin…"></textarea>
             </div>
           </div>
-          <button type="submit" class="btn btn-accent btn-block">Envoyer la demande par WhatsApp</button>
-          <button type="button" id="rdv-email" class="btn btn-outline btn-block" style="margin-top:10px;">Plutôt par e-mail</button>
-          <p class="form-note" style="margin-top:12px;">Votre demande est envoyée à la boutique via WhatsApp. Un opticien vous confirme le créneau dans les meilleurs délais.</p>
+          <button type="submit" class="btn btn-accent btn-block">Envoyer la demande</button>
+          <button type="button" id="rdv-email" class="btn btn-outline btn-block" style="margin-top:10px;">Plutôt par WhatsApp</button>
+          <p class="form-note" style="margin-top:12px;">Votre demande est envoyée par e-mail à la boutique. Un opticien vous confirme le créneau par téléphone ou WhatsApp.</p>
         </form>
 
         <div id="rdv-ok" class="store-card reveal in-view" hidden style="flex-direction:column; align-items:flex-start; gap:12px;">
@@ -293,6 +293,7 @@
 
 <script src="js/produits.js"></script>
 <script src="js/panier.js"></script>
+<script src="js/mail.js"></script>
 <script src="js/widgets.js"></script>
 <script src="js/marketing.js" defer></script>
 <script src="js/megamenu.js"></script>
@@ -346,13 +347,19 @@
     var texte = "Message — Optic Alizé\n\nNom : " + nom + "\nTéléphone : " + tel;
     if (email) texte += "\nE-mail : " + email;
     texte += "\nSujet : " + sujet + "\n\n" + msg;
-    return { texte: texte, nom: nom };
+    var champs = { Type: "Message (contact)", Nom: nom, "Téléphone": tel, Sujet: sujet, Message: msg };
+    if (email) champs["E-mail du client"] = email;
+    return { texte: texte, nom: nom, champs: champs };
   }
-  function confirmerContact(data) {
+  function confirmerContact(data, envoye) {
     cForm.hidden = true;
     var ok = document.getElementById("contact-ok");
     ok.hidden = false;
-    document.getElementById("contact-ok-text").textContent = "Merci " + data.nom + ", votre message est prêt.";
+    var t =
+      envoye === true ? "Merci " + data.nom + ", votre message a bien été envoyé. Un conseiller vous répond au plus vite."
+      : envoye === false ? "Merci " + data.nom + ". L'envoi automatique n'a pas abouti — utilisez WhatsApp ou l'e-mail ci-dessous."
+      : "Merci " + data.nom + ", votre message est prêt.";
+    document.getElementById("contact-ok-text").textContent = t;
     document.getElementById("contact-ok-wa").href = waLien(data.texte);
     document.getElementById("contact-ok-mail").href = mailLien("Message — Optic Alizé", data.texte);
     ok.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -360,14 +367,25 @@
   cForm.addEventListener("submit", function (e) {
     e.preventDefault();
     var data = texteContact();
-    window.open(waLien(data.texte), "_blank");
-    confirmerContact(data);
+    var btn = cForm.querySelector('button[type="submit"]');
+    var libelle = btn.textContent;
+    btn.disabled = true; btn.textContent = "Envoi en cours…";
+    if (typeof envoyerEmailSite === "function") {
+      envoyerEmailSite("Nouveau message — site Optic Alizé", data.champs, function (ok) {
+        btn.disabled = false; btn.textContent = libelle;
+        confirmerContact(data, ok);
+      });
+    } else {
+      btn.disabled = false; btn.textContent = libelle;
+      window.open(waLien(data.texte), "_blank");
+      confirmerContact(data, null);
+    }
   });
   document.getElementById("c-email-btn").addEventListener("click", function () {
     if (!cForm.reportValidity()) return;
     var data = texteContact();
-    window.location.href = mailLien("Message — Optic Alizé", data.texte);
-    confirmerContact(data);
+    window.open(waLien(data.texte), "_blank");
+    confirmerContact(data, null);
   });
   document.getElementById("contact-ok-new").addEventListener("click", function () {
     document.getElementById("contact-ok").hidden = true;
@@ -400,13 +418,20 @@
     var texte = "Demande de rendez-vous — Optic Alizé\n\nNom : " + nom + "\nTéléphone : " + tel + "\nMotif : " + motif + "\nDate souhaitée : " + dateLisible;
     if (creneau) texte += "\nCréneau : " + creneau;
     if (msg) texte += "\n\nMessage : " + msg;
-    return { texte: texte, nom: nom, dateLisible: dateLisible };
+    var champs = { Type: "Demande de rendez-vous", Nom: nom, "Téléphone": tel, Motif: motif, "Date souhaitée": dateLisible };
+    if (creneau) champs["Créneau"] = creneau;
+    if (msg) champs.Message = msg;
+    return { texte: texte, nom: nom, dateLisible: dateLisible, champs: champs };
   }
-  function confirmerRdv(data) {
+  function confirmerRdv(data, envoye) {
     rForm.hidden = true;
     var ok = document.getElementById("rdv-ok");
     ok.hidden = false;
-    document.getElementById("rdv-ok-text").textContent = "Merci " + data.nom + ". Récapitulatif de votre demande pour le " + data.dateLisible + ".";
+    var t =
+      envoye === true ? "Merci " + data.nom + ". Votre demande pour le " + data.dateLisible + " a bien été envoyée ; un opticien vous confirme le créneau."
+      : envoye === false ? "Merci " + data.nom + ". L'envoi automatique n'a pas abouti — utilisez WhatsApp ou l'e-mail ci-dessous."
+      : "Merci " + data.nom + ". Récapitulatif de votre demande pour le " + data.dateLisible + ".";
+    document.getElementById("rdv-ok-text").textContent = t;
     document.getElementById("rdv-ok-wa").href = waLien(data.texte);
     document.getElementById("rdv-ok-mail").href = mailLien("Demande de rendez-vous — Optic Alizé", data.texte);
     ok.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -415,15 +440,26 @@
     e.preventDefault();
     var data = texteRdv();
     if (data.erreur) { alert(data.erreur); return; }
-    window.open(waLien(data.texte), "_blank");
-    confirmerRdv(data);
+    var btn = rForm.querySelector('button[type="submit"]');
+    var libelle = btn.textContent;
+    btn.disabled = true; btn.textContent = "Envoi en cours…";
+    if (typeof envoyerEmailSite === "function") {
+      envoyerEmailSite("Demande de rendez-vous — site Optic Alizé", data.champs, function (ok) {
+        btn.disabled = false; btn.textContent = libelle;
+        confirmerRdv(data, ok);
+      });
+    } else {
+      btn.disabled = false; btn.textContent = libelle;
+      window.open(waLien(data.texte), "_blank");
+      confirmerRdv(data, null);
+    }
   });
   document.getElementById("rdv-email").addEventListener("click", function () {
     if (!rForm.reportValidity()) return;
     var data = texteRdv();
     if (data.erreur) { alert(data.erreur); return; }
-    window.location.href = mailLien("Demande de rendez-vous — Optic Alizé", data.texte);
-    confirmerRdv(data);
+    window.open(waLien(data.texte), "_blank");
+    confirmerRdv(data, null);
   });
   document.getElementById("rdv-ok-new").addEventListener("click", function () {
     document.getElementById("rdv-ok").hidden = true;
