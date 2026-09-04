@@ -27,6 +27,7 @@
 
   var KEY_P = "optic-alize-admin-produits";
   var KEY_V = "optic-alize-admin-verres";
+  var KEY_PUB = "optic-alize-admin-publications";
   var KEY_SES = "optic-alize-admin-session";
 
   var app = document.getElementById("admin-app");
@@ -46,11 +47,47 @@
     try { var o = JSON.parse(localStorage.getItem(KEY_V)); if (Array.isArray(o)) return o; } catch (e) {}
     return clone(typeof VERRES_DEFAUT !== "undefined" ? VERRES_DEFAUT : VERRES);
   }
+  /* Publications : actualités / conseils / offres (js/publications.js) */
+  var PUB_TYPES = {
+    actualites: { titre: "Actualités", varJs: "ACTUALITES", dossier: "actualites" },
+    conseils: { titre: "Conseils", varJs: "CONSEILS", dossier: "conseils" },
+    offres: { titre: "Offres", varJs: "OFFRES", dossier: "offres" },
+  };
+  function pubDefaut() {
+    return {
+      actualites: clone(typeof ACTUALITES_DEFAUT !== "undefined" ? ACTUALITES_DEFAUT : (typeof ACTUALITES !== "undefined" ? ACTUALITES : [])),
+      conseils: clone(typeof CONSEILS_DEFAUT !== "undefined" ? CONSEILS_DEFAUT : (typeof CONSEILS !== "undefined" ? CONSEILS : [])),
+      offres: clone(typeof OFFRES_DEFAUT !== "undefined" ? OFFRES_DEFAUT : (typeof OFFRES !== "undefined" ? OFFRES : [])),
+    };
+  }
+  function loadPubs() {
+    var d = pubDefaut();
+    try {
+      var o = JSON.parse(localStorage.getItem(KEY_PUB));
+      if (o && typeof o === "object") {
+        ["actualites", "conseils", "offres"].forEach(function (k) {
+          if (Array.isArray(o[k])) d[k] = o[k];
+        });
+      }
+    } catch (e) {}
+    return d;
+  }
+
   var produits = loadProduits();
   var verres = loadVerres();
+  var pubs = loadPubs();
 
   function saveProduits() { localStorage.setItem(KEY_P, JSON.stringify(produits)); }
   function saveVerres() { localStorage.setItem(KEY_V, JSON.stringify(verres)); }
+  function savePubs() {
+    try {
+      localStorage.setItem(KEY_PUB, JSON.stringify(pubs));
+      return true;
+    } catch (e) {
+      alert("Espace de stockage plein. Utilisez des images plus légères ou supprimez d'anciennes publications.");
+      return false;
+    }
+  }
   function montures() { return produits.filter(function (p) { return p.categorie === "montures"; }); }
   function lentilles() { return produits.filter(function (p) { return p.categorie === "lentilles"; }); }
 
@@ -181,6 +218,10 @@
     { k: "montures", l: "Montures" },
     { k: "lentilles", l: "Lentilles" },
     { k: "verres", l: "Verres" },
+    { k: "actualites", l: "Actualités" },
+    { k: "conseils", l: "Conseils" },
+    { k: "offres", l: "Offres" },
+    { k: "promo", l: "Promotions" },
     { k: "visiteurs", l: "Visiteurs" },
     { k: "emails", l: "E-mails" },
     { k: "marketing", l: "Marketing" },
@@ -218,6 +259,8 @@
     else if (onglet === "montures") vueProduits(c, "montures");
     else if (onglet === "lentilles") vueProduits(c, "lentilles");
     else if (onglet === "verres") vueVerres(c);
+    else if (PUB_TYPES[onglet]) vuePublications(c, onglet);
+    else if (onglet === "promo") vuePromo(c);
     else if (onglet === "visiteurs") vueVisiteurs(c);
     else if (onglet === "emails") vueEmails(c);
     else if (onglet === "marketing") vueMarketing(c);
@@ -252,13 +295,15 @@
       { l: "Montures", v: montures().length },
       { l: "Lentilles", v: lentilles().length },
       { l: "Verres", v: verres.length },
+      { l: "Actualités", v: pubs.actualites.length },
+      { l: "Conseils", v: pubs.conseils.length },
+      { l: "Offres", v: pubs.offres.length },
       { l: "Visites (ce navigateur)", v: st.vues || 0 },
-      { l: "Sessions", v: st.sessions || 0 },
       { l: "E-mails collectes", v: tousEmails().length },
       { l: "Comptes clients", v: comptes().length },
       { l: "Messages du chat", v: chatLog().length },
     ];
-    var surcharge = !!localStorage.getItem(KEY_P) || !!localStorage.getItem(KEY_V);
+    var surcharge = !!localStorage.getItem(KEY_P) || !!localStorage.getItem(KEY_V) || !!localStorage.getItem(KEY_PUB);
     c.innerHTML =
       "<h1>Tableau de bord</h1>" +
       (surcharge
@@ -474,6 +519,267 @@
       if (i != null) verres[i] = obj; else verres.push(obj);
       saveVerres();
       rendre("verres");
+    });
+  }
+
+  /* ============================================================
+     PUBLICATIONS (actualités / conseils / offres)
+     ============================================================ */
+  var PAGES_CTA = [
+    "", "contact.html?tab=rdv", "contact.html", "montures.html",
+    "montures.html?type=soleil", "lentilles.html", "verres.html",
+    "offres.html", "conseils.html", "actualites.html", "a-propos.html",
+  ];
+
+  /* Redimensionne une image (fichier) en JPEG compact -> data URI */
+  function redimImage(file, cb) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var img = new Image();
+      img.onload = function () {
+        var max = 1100;
+        var w = img.width, h = img.height;
+        if (w > max || h > max) {
+          if (w >= h) { h = Math.round((h * max) / w); w = max; }
+          else { w = Math.round((w * max) / h); h = max; }
+        }
+        var cv = document.createElement("canvas");
+        cv.width = w; cv.height = h;
+        var ctx = cv.getContext("2d");
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+        try { cb(cv.toDataURL("image/jpeg", 0.72)); }
+        catch (e) { cb(reader.result); }
+      };
+      img.onerror = function () { cb(reader.result); };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function vuePublications(c, type) {
+    var meta = PUB_TYPES[type];
+    var liste = pubs[type];
+
+    c.innerHTML =
+      '<div class="ad-head">' +
+      "<h1>" + meta.titre + " <span>(" + liste.length + ")</span></h1>" +
+      '<div class="ad-actions">' +
+      '<button class="ad-btn" data-exp>Exporter</button>' +
+      (localStorage.getItem(KEY_PUB) ? '<button class="ad-btn ad-btn--ghost" data-reset>Réinitialiser</button>' : "") +
+      '<button class="ad-btn ad-btn--primary" data-add>+ Ajouter</button>' +
+      "</div></div>" +
+      '<div class="ad-note">Ajoutez une image, un titre et un texte. La publication apparaît aussitôt sur la page <b>' + meta.titre +
+      '</b> du site (dans ce navigateur). Pour la mettre en ligne pour tout le monde : bouton <b>Exporter</b>.</div>' +
+      (liste.length
+        ? '<div class="ad-table-wrap"><table class="ad-table"><thead><tr><th></th><th>Titre</th><th>Texte</th><th>Bouton</th><th></th></tr></thead><tbody>' +
+          liste.map(function (p, i) {
+            return (
+              '<tr data-i="' + i + '">' +
+              '<td class="ad-thumb">' + (p.image ? '<img src="' + esc(p.image) + '" alt="" onerror="this.style.visibility=\'hidden\'">' : "") + "</td>" +
+              "<td>" + esc(p.titre) + "</td>" +
+              '<td class="ad-clip">' + esc((p.texte || "").slice(0, 90)) + ((p.texte || "").length > 90 ? "…" : "") + "</td>" +
+              "<td>" + (p.cta && p.cta.label ? esc(p.cta.label) : "—") + "</td>" +
+              '<td class="ad-row-act">' +
+              (i > 0 ? '<button data-up title="Monter">↑</button>' : "") +
+              (i < liste.length - 1 ? '<button data-down title="Descendre">↓</button>' : "") +
+              '<button data-edit>Modifier</button>' +
+              '<button data-del class="danger">Suppr.</button>' +
+              "</td></tr>"
+            );
+          }).join("") +
+          "</tbody></table></div>"
+        : '<p class="ad-empty">Aucune publication. Cliquez sur « + Ajouter ».</p>');
+
+    c.querySelector("[data-add]").addEventListener("click", function () { formPublication(type, null); });
+    c.querySelector("[data-exp]").addEventListener("click", function () {
+      telecharger(type + "-export.js", exportJsArray(meta.varJs, pubs[type]), "text/javascript");
+    });
+    var rs = c.querySelector("[data-reset]");
+    if (rs) rs.addEventListener("click", function () {
+      if (confirm("Revenir aux " + meta.titre.toLowerCase() + " d'origine ? Les 3 rubriques (actualités, conseils, offres) modifiées seront perdues.")) {
+        localStorage.removeItem(KEY_PUB);
+        pubs = loadPubs();
+        rendre(type);
+      }
+    });
+    c.querySelectorAll("tr[data-i]").forEach(function (tr) {
+      var i = Number(tr.dataset.i);
+      tr.querySelector("[data-edit]").addEventListener("click", function () { formPublication(type, i); });
+      tr.querySelector("[data-del]").addEventListener("click", function () {
+        if (confirm('Supprimer "' + (liste[i].titre || "cette publication") + '" ?')) {
+          liste.splice(i, 1); savePubs(); rendre(type);
+        }
+      });
+      var up = tr.querySelector("[data-up]");
+      if (up) up.addEventListener("click", function () {
+        var t = liste[i]; liste[i] = liste[i - 1]; liste[i - 1] = t; savePubs(); rendre(type);
+      });
+      var dn = tr.querySelector("[data-down]");
+      if (dn) dn.addEventListener("click", function () {
+        var t = liste[i]; liste[i] = liste[i + 1]; liste[i + 1] = t; savePubs(); rendre(type);
+      });
+    });
+  }
+
+  function formPublication(type, i) {
+    var meta = PUB_TYPES[type];
+    var existant = i != null ? pubs[type][i] : null;
+    var v = existant ? clone(existant) : {};
+    var cta = v.cta || {};
+
+    var corps =
+      '<div class="ad-field">' +
+      '<label>Image</label>' +
+      '<div id="pub-preview" style="margin-bottom:8px;">' +
+      (v.image ? '<img src="' + esc(v.image) + '" alt="" style="max-width:100%;max-height:180px;border-radius:10px;border:1px solid var(--ligne);">' : '<span class="ad-hint">Aucune image</span>') +
+      "</div>" +
+      '<input type="file" id="pub-file" accept="image/*">' +
+      '<input type="hidden" name="image" value="' + esc(v.image || "") + '">' +
+      '<p class="ad-hint">Choisissez une photo (elle est compressée automatiquement). Ou laissez le champ ci-dessous pour un chemin type <code>' + meta.dossier + '/photo.jpg</code>.</p>' +
+      '<input type="text" id="pub-path" placeholder="' + meta.dossier + '/ma-photo.jpg" value="' + (v.image && v.image.indexOf("data:") !== 0 ? esc(v.image) : "") + '" style="margin-top:6px;">' +
+      "</div>" +
+      '<div class="ad-field"><label for="f_titre">Titre</label><input type="text" id="f_titre" name="titre" required value="' + esc(v.titre || "") + '"></div>' +
+      '<div class="ad-field"><label for="f_texte">Texte</label><textarea id="f_texte" name="texte" required>' + esc(v.texte || "") + "</textarea></div>" +
+      '<div class="ad-field"><label for="f_ctalabel">Bouton (texte) — facultatif</label><input type="text" id="f_ctalabel" name="ctalabel" placeholder="Prendre rendez-vous" value="' + esc(cta.label || "") + '"></div>' +
+      '<div class="ad-field"><label for="f_ctahref">Bouton (lien)</label><select id="f_ctahref" name="ctahref">' +
+      PAGES_CTA.map(function (h) {
+        return '<option value="' + esc(h) + '"' + (h === (cta.href || "") ? " selected" : "") + ">" + (h || "— aucun —") + "</option>";
+      }).join("") +
+      "</select></div>";
+
+    modal((i != null ? "Modifier" : "Ajouter") + " — " + meta.titre.toLowerCase().replace(/s$/, ""), corps, function (data) {
+      var obj = existant ? clone(existant) : {};
+      obj.titre = (data.titre || "").trim();
+      obj.texte = (data.texte || "").trim();
+      var chemin = (data.image || "").trim();
+      var pathManuel = document.getElementById("pub-path");
+      if (pathManuel && pathManuel.value.trim()) chemin = pathManuel.value.trim();
+      obj.image = chemin;
+      if (data.ctalabel && data.ctalabel.trim() && data.ctahref) {
+        obj.cta = { label: data.ctalabel.trim(), href: data.ctahref };
+      } else {
+        delete obj.cta;
+      }
+      if (!obj.image) { alert("Ajoutez une image (photo ou chemin)."); return false; }
+      if (i != null) pubs[type][i] = obj;
+      else pubs[type].unshift(obj);
+      if (!savePubs()) return false;
+      rendre(type);
+    });
+
+    var fileInput = document.getElementById("pub-file");
+    fileInput.addEventListener("change", function () {
+      var f = fileInput.files && fileInput.files[0];
+      if (!f) return;
+      redimImage(f, function (dataUri) {
+        var hidden = document.querySelector('.ad-modal-ov input[name="image"]');
+        if (hidden) hidden.value = dataUri;
+        var pathField = document.getElementById("pub-path");
+        if (pathField) pathField.value = "";
+        var prev = document.getElementById("pub-preview");
+        if (prev) prev.innerHTML = '<img src="' + dataUri + '" alt="" style="max-width:100%;max-height:180px;border-radius:10px;border:1px solid var(--ligne);">';
+      });
+    });
+  }
+
+  /* ============================================================
+     PROMOTIONS (campagne site — barre + pastille + compte à rebours)
+     ============================================================ */
+  var CAMPAGNE_DEFAUT = {
+    actif: false,
+    titre: "Jours Prestiges",
+    message: "Jusqu'à −50 % sur les montures de marques",
+    reduction: "−50 %",
+    lienLabel: "En profiter",
+    lien: "offres.html",
+    fin: "",
+    pastille: true,
+    cibles: [],
+    version: "2026-09",
+  };
+  function loadCampagne() {
+    var d = clone(CAMPAGNE_DEFAUT);
+    try {
+      var c = JSON.parse(localStorage.getItem("optic-alize-campagne"));
+      if (c && typeof c === "object") Object.keys(c).forEach(function (k) { d[k] = c[k]; });
+    } catch (e) {}
+    if (!Array.isArray(d.cibles)) d.cibles = [];
+    return d;
+  }
+
+  function vuePromo(c) {
+    var camp = loadCampagne();
+    var act = !!localStorage.getItem("optic-alize-campagne");
+
+    c.innerHTML =
+      '<div class="ad-head"><h1>Promotions <span>campagne du site</span></h1>' +
+      '<div class="ad-actions">' +
+      (act ? '<button class="ad-btn ad-btn--ghost" data-off>Désactiver</button>' : "") +
+      '<button class="ad-btn" data-exp>Exporter</button>' +
+      '<a class="ad-btn" href="index.html" target="_blank">Voir le site ↗</a>' +
+      "</div></div>" +
+      '<div class="ad-note">Quand la campagne est <b>active</b>, le visiteur voit automatiquement, dès son arrivée : une <b>barre en haut</b> de toutes les pages, une <b>pastille flottante « PROMO »</b>, un <b>compte à rebours</b> (si une date de fin est indiquée) et un petit <b>ruban sur les articles</b> ciblés. ' +
+      "Comme le reste de l'admin, l'aperçu est local à ce navigateur : cliquez <b>Exporter</b> puis envoyez le fichier pour le mettre en ligne.</div>" +
+      '<form id="promo-form" class="ad-form" style="max-width:640px;padding:0;">' +
+      '<div class="ad-field"><label class="ad-check"><input type="checkbox" name="actif" ' + (camp.actif ? "checked" : "") + "> Campagne active</label></div>" +
+      '<div class="ad-field"><label>Titre court (badge)</label><input type="text" name="titre" value="' + esc(camp.titre) + '" placeholder="Jours Prestiges"></div>' +
+      '<div class="ad-field"><label>Message</label><input type="text" name="message" value="' + esc(camp.message) + '" placeholder="Jusqu\'à −50 % sur les montures"></div>' +
+      '<div class="ad-field"><label>Réduction affichée (ruban)</label><input type="text" name="reduction" value="' + esc(camp.reduction) + '" placeholder="−50 %"></div>' +
+      '<div class="ad-field"><label>Texte du bouton</label><input type="text" name="lienLabel" value="' + esc(camp.lienLabel) + '" placeholder="En profiter"></div>' +
+      '<div class="ad-field"><label>Lien du bouton</label><select name="lien">' +
+      PAGES_CTA.filter(Boolean).map(function (h) {
+        return '<option value="' + esc(h) + '"' + (h === camp.lien ? " selected" : "") + ">" + esc(h) + "</option>";
+      }).join("") +
+      "</select></div>" +
+      '<div class="ad-field"><label>Date de fin (compte à rebours) — facultatif</label><input type="date" name="fin" value="' + esc(camp.fin || "") + '"></div>' +
+      '<div class="ad-field"><label class="ad-check"><input type="checkbox" name="pastille" ' + (camp.pastille ? "checked" : "") + "> Afficher la pastille flottante « PROMO »</label></div>" +
+      '<div class="ad-field"><label>Ruban « promo » sur les articles</label>' +
+      '<label class="ad-check"><input type="checkbox" name="c_montures" ' + (camp.cibles.indexOf("montures") >= 0 ? "checked" : "") + "> Montures</label>" +
+      '<label class="ad-check"><input type="checkbox" name="c_lentilles" ' + (camp.cibles.indexOf("lentilles") >= 0 ? "checked" : "") + "> Lentilles</label></div>" +
+      '<div class="ad-field"><label>Version (change-la pour ré-afficher la barre à ceux qui l\'ont fermée)</label><input type="text" name="version" value="' + esc(camp.version) + '"></div>' +
+      '<div class="ad-modal-f" style="justify-content:flex-start;"><button type="submit" class="ad-btn ad-btn--primary">Enregistrer</button></div>' +
+      "</form>";
+
+    var offBtn = c.querySelector("[data-off]");
+    if (offBtn) offBtn.addEventListener("click", function () {
+      if (confirm("Retirer la campagne promo de ce navigateur ?")) {
+        localStorage.removeItem("optic-alize-campagne");
+        rendre("promo");
+      }
+    });
+    c.querySelector("[data-exp]").addEventListener("click", function () {
+      var obj = lireForm();
+      telecharger("campagne-export.js",
+        "/* Collez cet objet dans js/marketing.js -> MKT.campagne */\n" +
+        "const CAMPAGNE = " + JSON.stringify(obj, null, 2) + ";\n", "text/javascript");
+    });
+
+    function lireForm() {
+      var f = c.querySelector("#promo-form");
+      var cibles = [];
+      if (f.c_montures.checked) cibles.push("montures");
+      if (f.c_lentilles.checked) cibles.push("lentilles");
+      return {
+        actif: f.actif.checked,
+        titre: f.titre.value.trim(),
+        message: f.message.value.trim(),
+        reduction: f.reduction.value.trim(),
+        lienLabel: f.lienLabel.value.trim(),
+        lien: f.lien.value,
+        fin: f.fin.value,
+        pastille: f.pastille.checked,
+        cibles: cibles,
+        version: f.version.value.trim() || "2026-09",
+      };
+    }
+
+    c.querySelector("#promo-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      localStorage.setItem("optic-alize-campagne", JSON.stringify(lireForm()));
+      alert("Campagne enregistrée. Ouvrez le site pour la voir.");
+      rendre("promo");
     });
   }
 

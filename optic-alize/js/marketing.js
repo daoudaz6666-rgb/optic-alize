@@ -11,13 +11,20 @@ const MKT = {
   /* Adresse publique du site (pour le partage sur Facebook / WhatsApp). */
   siteUrl: "https://www.opticalize.com",
 
-  /* Barre d'annonce en haut de page. Mettre actif:false pour la masquer. */
-  annonce: {
+  /* Campagne promo — pilotable depuis la page admin (onglet « Promotions »).
+     Quand actif = true : barre en haut + compte à rebours + pastille flottante,
+     visibles automatiquement sur tout le site dès l'arrivée du visiteur. */
+  campagne: {
     actif: true,
-    texte: "Jours Prestiges : jusqu'à −50 % sur les montures de marques",
+    titre: "Jours Prestiges",
+    message: "Jusqu'à −50 % sur les montures de marques",
+    reduction: "−50 %", // texte du petit ruban sur les cartes produit
     lienLabel: "En profiter",
     lien: "offres.html",
-    /* Change cette valeur (ex. \"2026-09\") pour ré-afficher la barre à tous. */
+    fin: "", // "2026-09-30" => compte à rebours ; vide => pas de compte à rebours
+    pastille: true, // pastille flottante « PROMO »
+    cibles: [], // ["montures"] / ["lentilles"] => ruban sur les cartes ; [] => aucun ruban
+    /* Change cette valeur (ex. "2026-09b") pour ré-afficher la barre à ceux qui l'ont fermée. */
     version: "2026-09",
   },
 
@@ -131,23 +138,88 @@ const MKT = {
   })();
 
   document.addEventListener("DOMContentLoaded", () => {
-    /* ---------- 1. Barre d'annonce ---------- */
-    if (MKT.annonce.actif && lire("optic-alize-annonce", "") !== MKT.annonce.version) {
-      const bar = document.createElement("div");
-      bar.className = "promo-bar";
-      bar.innerHTML =
-        '<div class="container promo-bar-in">' +
-        "<span>" + MKT.annonce.texte + "</span>" +
-        (MKT.annonce.lien ? ' <a href="' + MKT.annonce.lien + '">' + MKT.annonce.lienLabel + " →</a>" : "") +
-        '<button class="promo-bar-x" type="button" aria-label="Fermer">&times;</button>' +
-        "</div>";
-      document.body.insertBefore(bar, document.body.firstChild);
-      document.body.classList.add("has-promo-bar");
-      bar.querySelector(".promo-bar-x").addEventListener("click", () => {
-        bar.remove();
-        document.body.classList.remove("has-promo-bar");
-        ecrire("optic-alize-annonce", MKT.annonce.version);
-      });
+    /* ---------- 1. Campagne promo (barre + compte à rebours + pastille) ---------- */
+    const camp = Object.assign({}, MKT.campagne, lire("optic-alize-campagne", {}) || {});
+    const esc1 = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+    /* Temps restant avant camp.fin (fin de journée). "" si pas de date / dépassé. */
+    function tempsRestant() {
+      if (!camp.fin) return "";
+      const f = new Date(camp.fin + "T23:59:59");
+      let d = f - new Date();
+      if (isNaN(d) || d <= 0) return "";
+      const j = Math.floor(d / 86400000); d -= j * 86400000;
+      const h = Math.floor(d / 3600000); d -= h * 3600000;
+      const m = Math.floor(d / 60000);
+      if (j > 0) return "Plus que " + j + " j " + h + " h";
+      if (h > 0) return "Plus que " + h + " h " + m + " min";
+      return "Plus que " + m + " min";
+    }
+    const promoExpiree = camp.fin && !tempsRestant();
+
+    if (camp.actif && !promoExpiree) {
+      /* --- barre en haut --- */
+      if (lire("optic-alize-annonce", "") !== camp.version) {
+        const bar = document.createElement("div");
+        bar.className = "promo-bar";
+        const maj = () => {
+          const t = tempsRestant();
+          bar.innerHTML =
+            '<div class="container promo-bar-in">' +
+            (camp.titre ? '<strong class="promo-bar-tag">' + esc1(camp.titre) + "</strong> " : "") +
+            "<span>" + esc1(camp.message) + "</span>" +
+            (t ? ' <span class="promo-countdown">⏳ ' + esc1(t) + "</span>" : "") +
+            (camp.lien ? ' <a href="' + esc1(camp.lien) + '">' + esc1(camp.lienLabel || "En profiter") + " →</a>" : "") +
+            '<button class="promo-bar-x" type="button" aria-label="Fermer">&times;</button>' +
+            "</div>";
+          bar.querySelector(".promo-bar-x").addEventListener("click", () => {
+            bar.remove();
+            document.body.classList.remove("has-promo-bar");
+            clearInterval(iv);
+            ecrire("optic-alize-annonce", camp.version);
+          });
+        };
+        maj();
+        const iv = camp.fin ? setInterval(maj, 60000) : 0;
+        document.body.insertBefore(bar, document.body.firstChild);
+        document.body.classList.add("has-promo-bar");
+      }
+
+      /* --- pastille flottante « PROMO » (revient à chaque visite) --- */
+      if (camp.pastille && !sessionStorage.getItem("optic-alize-promo-fab") && page !== "panier.html") {
+        const fab = document.createElement("a");
+        fab.className = "promo-fab";
+        fab.href = camp.lien || "offres.html";
+        fab.innerHTML =
+          '<span class="promo-fab-burst">PROMO</span>' +
+          '<span class="promo-fab-txt">' + esc1(camp.titre || "Offres") + "</span>" +
+          '<button class="promo-fab-x" type="button" aria-label="Masquer">&times;</button>';
+        fab.querySelector(".promo-fab-x").addEventListener("click", (e) => {
+          e.preventDefault();
+          fab.remove();
+          sessionStorage.setItem("optic-alize-promo-fab", "1");
+        });
+        document.body.appendChild(fab);
+      }
+
+      /* --- ruban « PROMO » sur les cartes produit des pages ciblées --- */
+      const cibles = Array.isArray(camp.cibles) ? camp.cibles : [];
+      const surCettePage =
+        (cibles.indexOf("montures") >= 0 && /montures|produit|index/.test(page)) ||
+        (cibles.indexOf("lentilles") >= 0 && /lentilles|produit/.test(page));
+      if (cibles.length && surCettePage) {
+        const poser = () => {
+          document.querySelectorAll(".product-card:not([data-promo])").forEach((c) => {
+            c.setAttribute("data-promo", "1");
+            const r = document.createElement("span");
+            r.className = "promo-ribbon";
+            r.textContent = camp.reduction || "PROMO";
+            c.appendChild(r);
+          });
+        };
+        poser();
+        new MutationObserver(poser).observe(document.body, { childList: true, subtree: true });
+      }
     }
 
     /* ---------- 2. Pop-up de bienvenue ---------- */

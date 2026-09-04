@@ -157,14 +157,38 @@ const ACTUALITES = [
   },
 ];
 
+/* Instantané d'origine (avant toute modification via la page d'administration). */
+const OFFRES_DEFAUT = JSON.parse(JSON.stringify(OFFRES));
+const CONSEILS_DEFAUT = JSON.parse(JSON.stringify(CONSEILS));
+const ACTUALITES_DEFAUT = JSON.parse(JSON.stringify(ACTUALITES));
+
+/* Surcharge possible depuis la page d'administration (localStorage).
+   N'affecte que le navigateur de l'admin, pas les autres visiteurs. */
+(function appliquerAdminPublications() {
+  try {
+    const o = JSON.parse(localStorage.getItem("optic-alize-admin-publications"));
+    if (!o || typeof o !== "object") return;
+    const remplace = (cible, source) => {
+      if (!Array.isArray(source)) return;
+      cible.length = 0;
+      source.forEach((x) => cible.push(x));
+    };
+    remplace(OFFRES, o.offres);
+    remplace(CONSEILS, o.conseils);
+    remplace(ACTUALITES, o.actualites);
+  } catch (e) {}
+})();
+
 function cartedPublication(p) {
+  const e = (s) =>
+    String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   return (
     '<figure class="poster-card reveal">' +
-    '<img src="' + p.image + '" alt="' + p.titre + '" loading="lazy">' +
+    '<img src="' + e(p.image) + '" alt="' + e(p.titre) + '" loading="lazy">' +
     "<figcaption>" +
-    "<h3>" + p.titre + "</h3>" +
-    "<p>" + p.texte + "</p>" +
-    (p.cta ? '<a href="' + p.cta.href + '" class="btn btn-primary btn-sm">' + p.cta.label + "</a>" : "") +
+    "<h3>" + e(p.titre) + "</h3>" +
+    "<p>" + e(p.texte) + "</p>" +
+    (p.cta && p.cta.href ? '<a href="' + e(p.cta.href) + '" class="btn btn-primary btn-sm">' + e(p.cta.label || "En savoir plus") + "</a>" : "") +
     "</figcaption></figure>"
   );
 }
