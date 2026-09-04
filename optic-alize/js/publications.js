@@ -87,7 +87,7 @@ const ACTUALITES = [
     titre: "Contrôle de la vue gratuit — 0 FCFA",
     texte:
       "Bien voir, c'est profiter pleinement de son week-end. Faites contrôler votre vue gratuitement dans nos agences de Ouagadougou, Bobo-Dioulasso et Koudougou.",
-    cta: { label: "Prendre rendez-vous", href: "contact.html" },
+    cta: { label: "Prendre rendez-vous", href: "contact.html?tab=rdv" },
   },
   {
     image: "actualites/verres-sales.jpg",

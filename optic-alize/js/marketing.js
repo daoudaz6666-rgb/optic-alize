@@ -76,7 +76,7 @@ const MKT = {
       if (/wa\.me|api\.whatsapp|whatsapp:/.test(h)) trackClic("whatsapp");
       else if (h.startsWith("tel:")) trackClic("telephone");
       else if (h.startsWith("mailto:")) trackClic("email");
-      else if (/rendez-vous\.html/.test(h)) trackClic("rendez-vous");
+      else if (/rendez-vous\.html|contact\.html\?tab=rdv/.test(h)) trackClic("rendez-vous");
     },
     true
   );
