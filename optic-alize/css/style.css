@@ -1660,6 +1660,18 @@ section { padding: var(--space-5) 0; }
 }
 .share-row a:hover,
 .share-row button:hover { background: var(--sable); }
+@media (max-width: 640px) {
+  /* "Partager :" + 3 boutons alignés en grille 2x2 (2 en haut, 2 en
+     bas), comme Nos engagements, au lieu de tomber chacun sur sa
+     propre ligne (flex-wrap) sur mobile. */
+  .share-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .share-row span {
+    display: flex; align-items: center; justify-content: center;
+    background: var(--blanc); border: 1px solid var(--ligne);
+    border-radius: 999px; padding: 7px 14px;
+  }
+  .share-row a, .share-row button { text-align: center; }
+}
 
 @media (max-width: 640px) {
   .referral-in { text-align: center; justify-content: center; }
@@ -1732,8 +1744,22 @@ section { padding: var(--space-5) 0; }
 .contact-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); margin-bottom: var(--space-4); }
 .contact-split { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--space-4); align-items: flex-start; margin-top: 28px; }
 @media (max-width: 860px) {
-  .contact-cards { grid-template-columns: 1fr; }
   .contact-split { grid-template-columns: 1fr; gap: var(--space-4); }
+}
+@media (max-width: 620px) {
+  /* Téléphone / WhatsApp / E-mail : grille 2 colonnes (comme Nos
+     engagements) au lieu d'un empilement plein-largeur en 1 colonne,
+     avec des cartes compactes et centrées. */
+  .contact-cards { grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+  .contact-cards .store-card {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+    padding: var(--space-3);
+    gap: 8px;
+  }
+  .contact-cards .store-card h3 { font-size: 0.95rem; margin-bottom: 2px; }
+  .contact-cards .store-card p { font-size: 0.82rem; }
 }
 
 /* ============ Favoris (liste d'envies) ============ */
