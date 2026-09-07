@@ -1592,11 +1592,15 @@ section { padding: var(--space-5) 0; }
   .testi-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 620px) {
-  /* Une carte par ligne, pleine largeur : évite que la grille ne
-     déborde en colonnes trop étroites et coupées sur mobile. */
+  /* 4 cartes bien nettes en grille 2x2 (2 en haut, 2 en bas), comme
+     pour "Nos engagements" — texte et espacement resserrés pour
+     rester lisible dans des cartes plus étroites. */
   .testimonials { padding: var(--space-4) 0; }
-  .testi-grid { grid-template-columns: 1fr; gap: var(--space-2); margin-top: var(--space-3); }
-  .testi-card { padding: 20px; }
+  .testi-grid { grid-template-columns: 1fr 1fr; gap: var(--space-2); margin-top: var(--space-3); }
+  .testi-card { padding: 14px; }
+  .testi-stars { font-size: 0.8rem; margin-bottom: 8px; }
+  .testi-card blockquote { font-size: 0.78rem; line-height: 1.4; margin-bottom: 10px; }
+  .testi-card figcaption { font-size: 0.76rem; }
 }
 
 /* --- Parrainage --- */
