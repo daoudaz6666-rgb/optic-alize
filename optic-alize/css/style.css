@@ -52,10 +52,11 @@ body {
   font-size: 16px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
-  /* Empêche le menu mobile (caché hors écran via transform) et tout
-     autre élément un peu large de créer un défilement horizontal
-     fantôme qui fait "bouger" la page. */
-  overflow-x: hidden;
+  /* Note : overflow-x n'est volontairement PAS mis sur <body> ici — sur
+     Safari iOS, cela casse le position:fixed du menu mobile (il se
+     réduit à la hauteur de son contenu au lieu de couvrir l'écran).
+     Le défilement horizontal fantôme est bloqué via html { overflow-x }
+     ci-dessus et via .main-nav (visibility) plus bas. */
 }
 
 img, svg { max-width: 100%; display: block; }
@@ -314,8 +315,13 @@ p { margin: 0 0 var(--space-2); color: var(--encre-80); }
 .nav-toggle { display: none; }
 
 @media (max-width: 980px) {
-  .main-nav { position: fixed; inset: 90px 0 0 0; background: var(--sable); flex-direction: column; align-items: stretch; padding: var(--space-4) var(--space-3); gap: var(--space-3); transform: translateX(100%); transition: transform 0.3s ease; overflow-y: auto; z-index: 99; }
-  .main-nav.open { transform: translateX(0); }
+  /* visibility caché quand fermé (en plus du transform) : empêche le
+     panneau hors-écran de compter dans la largeur défilable de la page
+     sans avoir besoin d'overflow-x sur <body> (qui casse position:fixed
+     sur Safari iOS). Le délai sur la transition de visibility laisse
+     l'animation de fermeture se terminer avant de le cacher pour de bon. */
+  .main-nav { position: fixed; inset: 90px 0 0 0; background: var(--sable); flex-direction: column; align-items: stretch; padding: var(--space-4) var(--space-3); gap: var(--space-3); transform: translateX(100%); visibility: hidden; transition: transform 0.3s ease, visibility 0s linear 0.3s; overflow-y: auto; z-index: 99; }
+  .main-nav.open { transform: translateX(0); visibility: visible; transition: transform 0.3s ease; }
   .nav-toggle { display: inline-flex; }
   .logo img { height: 68px; }
 
