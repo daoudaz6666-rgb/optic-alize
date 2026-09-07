@@ -908,6 +908,9 @@ section { padding: var(--space-5) 0; }
 .page-hero h1 { color: var(--sable); }
 .page-hero .lede { color: rgba(246,242,234,0.9); max-width: 60ch; }
 .page-hero .lede a { color: var(--or-clair); text-decoration: underline; }
+@media (max-width: 640px) {
+  .page-hero { min-height: 240px; padding: var(--space-4) 0 var(--space-3); }
+}
 
 /* ============ OFFRES & CONSEILS (publications) ============ */
 .poster-grid {
@@ -924,7 +927,7 @@ section { padding: var(--space-5) 0; }
   display: flex;
   flex-direction: column;
 }
-.poster-card img { width: 100%; height: auto; display: block; background: var(--sable-fonce); }
+.poster-card img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; background: var(--sable-fonce); }
 .poster-card figcaption { padding: var(--space-4); display: flex; flex-direction: column; align-items: flex-start; flex: 1; }
 .poster-card h3 { font-size: 1.2rem; margin-bottom: 8px; }
 .poster-card p { font-size: 0.92rem; color: var(--encre-80); margin-bottom: 16px; }
@@ -1047,7 +1050,10 @@ section { padding: var(--space-5) 0; }
 .auth-forgot { display: inline-block; margin-top: 4px; font-size: 0.85rem; color: var(--turquoise-fonce); font-weight: 600; }
 .auth-account-card { background: var(--blanc); border: 1px solid var(--ligne); border-radius: var(--radius); padding: var(--space-5); }
 .auth-account-card .who { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 4px; }
-@media (max-width: 760px) { .auth-grid { grid-template-columns: 1fr; } }
+@media (max-width: 760px) {
+  .auth-grid { grid-template-columns: 1fr; }
+  .auth-card, .auth-account-card { padding: var(--space-3); }
+}
 
 /* ============ Bandeau confiance ============ */
 .trust-strip { background: var(--encre); color: var(--sable); padding: var(--space-3) 0; }
@@ -1056,6 +1062,9 @@ section { padding: var(--space-5) 0; }
 /* ============ Store locator mini ============ */
 .store-card { background: var(--blanc); border: 1px solid var(--ligne); border-radius: var(--radius); padding: var(--space-4); display: flex; gap: var(--space-3); align-items: center; }
 .store-card svg { width: 30px; height: 30px; color: var(--turquoise); flex-shrink: 0; }
+@media (max-width: 620px) {
+  .store-card { padding: var(--space-3); gap: var(--space-2); }
+}
 
 /* ============ FOOTER ============ */
 .site-footer {
