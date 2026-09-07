@@ -781,6 +781,16 @@ section { padding: var(--space-5) 0; }
 .product-price { font-family: var(--font-mono); font-weight: 500; font-size: 1.05rem; }
 .color-dots { display: flex; gap: 5px; margin-top: 6px; }
 .color-dot { width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--ligne); }
+@media (max-width: 620px) {
+  /* Catalogue (montures, lentilles, favoris) : grille 2 colonnes au
+     lieu d'une carte géante par ligne, comme Nos engagements. */
+  .product-grid { grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+  .product-grid .product-body { padding: var(--space-2); gap: 3px; }
+  .product-grid .product-name { font-size: 0.92rem; }
+  .product-grid .product-desc { font-size: 0.76rem; margin-bottom: 6px; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; }
+  .product-grid .product-cat { font-size: 0.62rem; }
+  .product-grid .product-foot .btn { font-size: 0.78rem; padding: 8px 14px; }
+}
 
 /* ============ Carrousel produits (défilement horizontal) ============ */
 .product-carousel { position: relative; }
@@ -1233,7 +1243,7 @@ section { padding: var(--space-5) 0; }
   .hero-stats { margin-top: var(--space-3); gap: var(--space-2) var(--space-3); }
 }
 @media (max-width: 620px) {
-  .cat-grid, .product-grid { grid-template-columns: 1fr; }
+  .cat-grid { grid-template-columns: 1fr; }
   .form-grid { grid-template-columns: 1fr; }
   .cart-row { grid-template-columns: 60px 1fr; grid-template-areas: "img name" "img price" "img qty"; }
   .hero-stats { flex-wrap: wrap; }
