@@ -949,7 +949,20 @@ section { padding: var(--space-5) 0; }
 .poster-card p { font-size: 0.92rem; color: var(--encre-80); margin-bottom: 16px; }
 .poster-card .btn { margin-top: auto; }
 @media (max-width: 720px) {
-  .poster-grid { grid-template-columns: 1fr; gap: var(--space-3); }
+  .poster-grid { gap: var(--space-3); }
+}
+@media (max-width: 620px) {
+  /* Conseils / Offres / Actualités : 2 publications par ligne au lieu
+     d'une seule grande carte, avec un contenu resserré pour rester
+     lisible dans des cartes plus étroites. */
+  .poster-grid { grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+  .poster-card figcaption { padding: var(--space-2); gap: 2px; }
+  .poster-card h3 { font-size: 0.92rem; margin-bottom: 4px; }
+  .poster-card p {
+    font-size: 0.76rem; margin-bottom: 8px;
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;
+  }
+  .poster-card .btn { font-size: 0.78rem; padding: 8px 14px; }
 }
 
 /* ============ Publication Facebook intégrée ============ */
