@@ -1092,7 +1092,12 @@ section { padding: var(--space-5) 0; }
 .store-card { background: var(--blanc); border: 1px solid var(--ligne); border-radius: var(--radius); padding: var(--space-4); display: flex; gap: var(--space-3); align-items: center; }
 .store-card svg { width: 30px; height: 30px; color: var(--turquoise); flex-shrink: 0; }
 @media (max-width: 620px) {
-  .store-card { padding: var(--space-3); gap: var(--space-2); }
+  /* Carte "coordonnées" ou CTA (icône + texte [+ bouton]) : empilée et
+     centrée en petit carré propre au lieu d'une ligne comprimée où le
+     texte se retrouve écrasé entre l'icône et le bouton. */
+  .store-card { padding: var(--space-3); gap: var(--space-2); flex-direction: column; text-align: center; }
+  .store-card svg { margin: 0 auto; }
+  .store-card .btn { width: 100%; }
 }
 
 /* ============ FOOTER ============ */
