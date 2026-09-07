@@ -1152,19 +1152,54 @@ section { padding: var(--space-5) 0; }
     background:
       linear-gradient(180deg, rgba(9,26,34,0.82) 0%, rgba(9,26,34,0.68) 45%, rgba(9,26,34,0.78) 100%);
   }
-  .hero-collage { gap: 12px; padding: 12px; }
-  .hero-col:nth-child(3) { display: none; }
+  .hero-collage { gap: 10px; padding: 10px; }
+  /* On garde les 3 colonnes (au lieu d'en masquer une) pour que chaque
+     photo reste proportionnée au lieu de s'étirer en trop grand. */
   .cat-grid { grid-template-columns: 1fr 1fr; }
   .value-grid { grid-template-columns: 1fr 1fr; }
   .product-grid { grid-template-columns: 1fr 1fr; }
   .product-detail { grid-template-columns: 1fr; }
   .pd-media { position: static; }
 }
+@media (max-width: 760px) {
+  /* Mur de photos du hero : hauteur réduite + contenu plus compact
+     pour que la section ne soit plus démesurée sur mobile. */
+  .hero { min-height: 480px; padding: var(--space-4) 0 var(--space-3); }
+  .hero-collage { gap: 8px; padding: 8px; }
+  .hero-col img { margin-bottom: 8px; border-radius: 10px; }
+  .hero-cred { margin-bottom: 14px; gap: 8px; }
+  .hero-title { min-height: 0; }
+  .hero h1 { font-size: clamp(1.9rem, 8vw, 2.6rem); }
+  .hero .lede { font-size: 0.94rem; }
+  .hero-actions { margin-top: var(--space-3); }
+  .hero-stats { margin-top: var(--space-3); gap: var(--space-2) var(--space-3); }
+}
 @media (max-width: 620px) {
   .cat-grid, .value-grid, .product-grid { grid-template-columns: 1fr; }
   .form-grid { grid-template-columns: 1fr; }
   .cart-row { grid-template-columns: 60px 1fr; grid-template-areas: "img name" "img price" "img qty"; }
   .hero-stats { flex-wrap: wrap; }
+  section { padding: var(--space-4) 0; }
+
+  /* "Nos univers" : cartes compactes en ligne (vignette + texte)
+     au lieu d'une grande image pleine largeur, pour un rendu plus
+     court et mieux aligné sur téléphone. */
+  .cat-card { display: flex; align-items: stretch; gap: 0; }
+  .cat-media {
+    flex: 0 0 118px;
+    width: 118px;
+    height: auto;
+    align-self: stretch;
+    object-fit: cover;
+  }
+  .cat-body { flex: 1; min-width: 0; padding: var(--space-2) var(--space-2); display: flex; flex-direction: column; justify-content: center; }
+  .cat-body h3 { font-size: 1.02rem; margin-bottom: 4px; }
+  .cat-body p { font-size: 0.82rem; margin-bottom: 8px; }
+  .cat-card a { margin-top: 0; font-size: 0.84rem; }
+
+  .collection-tile { flex-basis: 132px; gap: 8px; }
+  .collection-tile .ct-img { width: 132px; height: 92px; border-radius: 12px; }
+  .collection-tile .ct-name { font-size: 0.68rem; }
 }
 
 /* ============================================================
