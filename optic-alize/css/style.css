@@ -572,7 +572,7 @@ section { padding: var(--space-5) 0; }
   background: var(--sable-fonce);
 }
 .map-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-@media (max-width: 640px) { .map-embed { aspect-ratio: 3 / 4; } }
+@media (max-width: 640px) { .map-embed { aspect-ratio: 4 / 3; border-radius: var(--radius-sm); } }
 .cat-card svg { width: 44px; height: 30px; margin-bottom: var(--space-2); color: var(--turquoise); }
 .cat-card a { color: var(--turquoise-fonce); font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; margin-top: var(--space-1); }
 
@@ -800,7 +800,14 @@ section { padding: var(--space-5) 0; }
 .carousel-btn--next { right: -14px; }
 .carousel-btn[disabled] { opacity: 0; pointer-events: none; }
 @media (max-width: 760px) {
-  .carousel-viewport > .product-card { flex-basis: 78%; }
+  /* Cartes du carrousel « Notre sélection du moment » : plus petites et
+     on laisse dépasser un bout de la carte suivante (repère de swipe). */
+  .carousel-viewport { gap: var(--space-2); }
+  .carousel-viewport > .product-card { flex-basis: clamp(168px, 60%, 225px); }
+  .carousel-viewport .product-body { padding: var(--space-2); gap: 3px; }
+  .carousel-viewport .product-name { font-size: 1rem; }
+  .carousel-viewport .product-desc { font-size: 0.8rem; margin-bottom: 6px; }
+  .carousel-viewport .product-cat { font-size: 0.65rem; }
   .carousel-btn { display: none; }
 }
 
@@ -1112,8 +1119,22 @@ section { padding: var(--space-5) 0; }
 @media (max-width: 960px) {
   .footer-cols { grid-template-columns: 1fr 1fr; }
 }
-@media (max-width: 560px) {
-  .footer-cols { grid-template-columns: 1fr; }
+@media (max-width: 620px) {
+  /* Pied de page compact : on garde 2 colonnes (au lieu d'empiler les 5
+     blocs en une seule colonne) pour diviser sa hauteur par deux environ,
+     avec des espacements et une police resserrés. */
+  .site-footer { padding: var(--space-4) 0 var(--space-2); margin-top: var(--space-4); }
+  .footer-cols { grid-template-columns: 1fr 1fr; gap: var(--space-3) var(--space-2); padding-bottom: var(--space-3); }
+  .footer-col h4 { font-size: 0.92rem; margin-bottom: 10px; }
+  .footer-lines li { padding: 8px 0; font-size: 0.82rem; }
+  .footer-contact { gap: 8px; margin-bottom: var(--space-2); }
+  .footer-contact li { font-size: 0.82rem; }
+  .footer-cta { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .fbtn { padding: 9px 14px; font-size: 0.8rem; }
+  .footer-hours { gap: 6px; padding: var(--space-2) 0; }
+  .fh-pill { padding: 6px 12px; font-size: 0.72rem; }
+  .footer-bottom { padding-top: var(--space-2); font-size: 0.72rem; }
+  .footer-bottom img { height: 30px; }
 }
 
 /* ============ Toast panier ============ */
