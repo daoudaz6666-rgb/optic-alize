@@ -585,6 +585,24 @@ section { padding: var(--space-5) 0; }
 .value-item svg { width: 30px; height: 30px; color: var(--or); margin-bottom: var(--space-2); }
 .value-item h4 { font-family: var(--font-body); font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
 .value-item p { font-size: 0.9rem; margin: 0; }
+@media (max-width: 620px) {
+  /* 4 cartes bien nettes, alignées en grille 2x2 (2 en haut, 2 en bas)
+     au lieu d'une longue liste empilée verticalement. */
+  .value-grid { grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+  .value-item {
+    background: var(--blanc);
+    border: 1px solid var(--ligne);
+    border-radius: var(--radius);
+    padding: var(--space-2);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .value-item svg { width: 26px; height: 26px; margin: 0 auto var(--space-1); }
+  .value-item h4 { font-size: 0.9rem; }
+  .value-item p { font-size: 0.78rem; line-height: 1.45; }
+}
 
 /* ============ ÉQUIPE (À propos) ============ */
 .team-section { margin-top: 64px; }
@@ -1200,7 +1218,7 @@ section { padding: var(--space-5) 0; }
   .hero-stats { margin-top: var(--space-3); gap: var(--space-2) var(--space-3); }
 }
 @media (max-width: 620px) {
-  .cat-grid, .value-grid, .product-grid { grid-template-columns: 1fr; }
+  .cat-grid, .product-grid { grid-template-columns: 1fr; }
   .form-grid { grid-template-columns: 1fr; }
   .cart-row { grid-template-columns: 60px 1fr; grid-template-areas: "img name" "img price" "img qty"; }
   .hero-stats { flex-wrap: wrap; }
