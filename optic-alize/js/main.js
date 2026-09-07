@@ -32,6 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
     nav.querySelectorAll("a:not(.nav-mega-trigger)").forEach((a) =>
       a.addEventListener("click", () => nav.classList.remove("open"))
     );
+    /* Le menu est maintenant un tiroir déroulant (pas un plein écran) :
+       un tap en dehors (sur le reste de la page visible en dessous) le referme. */
+    document.addEventListener("click", (e) => {
+      if (nav.classList.contains("open") && !nav.contains(e.target) && !toggle.contains(e.target)) {
+        nav.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
   }
 
   /* Onglet Optique — méga-menu (survol sur desktop, accordéon sur mobile) */
