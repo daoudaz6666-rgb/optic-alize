@@ -345,8 +345,25 @@ p { margin: 0 0 var(--space-2); color: var(--encre-80); }
   .nav-toggle { display: inline-flex; }
   .logo img { height: 68px; }
 
+  /* Dans le tiroir mobile, le trait zigzag (pensé pour un soulignement
+     inline sur desktop) n'a pas sa place sous des liens pleine largeur :
+     on le remplace par un simple liseré de couleur à gauche du lien
+     actif/survolé. */
+  .main-nav > a::after, .nav-mega-trigger::after { content: none; }
+  .main-nav > a, .nav-mega-trigger {
+    padding: 12px 12px 12px 14px;
+    border-left: 3px solid transparent;
+    border-radius: var(--radius-sm);
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .main-nav > a:hover, .main-nav > a.active,
+  .nav-mega-trigger:hover, .nav-mega-trigger.active {
+    background: var(--sable-fonce);
+    border-left-color: var(--turquoise);
+  }
+
   .nav-item--mega { flex-direction: column; align-items: stretch; padding: 0; margin: 0; width: 100%; }
-  .nav-mega-trigger { justify-content: space-between; padding: 4px 0; }
+  .nav-mega-trigger { justify-content: space-between; }
   .nav-mega-trigger svg { width: 16px; height: 16px; }
   .nav-item--mega.open .nav-mega-trigger svg { transform: rotate(180deg); }
   .nav-sub {
