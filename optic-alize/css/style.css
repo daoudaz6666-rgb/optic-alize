@@ -1178,6 +1178,7 @@ section { padding: var(--space-5) 0; }
      photo reste proportionnée au lieu de s'étirer en trop grand. */
   .cat-grid { grid-template-columns: 1fr 1fr; }
   .value-grid { grid-template-columns: 1fr 1fr; }
+  .testi-grid { grid-template-columns: 1fr 1fr; }
   .product-grid { grid-template-columns: 1fr 1fr; }
   .product-detail { grid-template-columns: 1fr; }
   .pd-media { position: static; }
@@ -1196,7 +1197,7 @@ section { padding: var(--space-5) 0; }
   .hero-stats { margin-top: var(--space-3); gap: var(--space-2) var(--space-3); }
 }
 @media (max-width: 620px) {
-  .cat-grid, .value-grid, .product-grid { grid-template-columns: 1fr; }
+  .cat-grid, .value-grid, .testi-grid, .product-grid { grid-template-columns: 1fr; }
   .form-grid { grid-template-columns: 1fr; }
   .cart-row { grid-template-columns: 60px 1fr; grid-template-areas: "img name" "img price" "img qty"; }
   .hero-stats { flex-wrap: wrap; }
@@ -1550,7 +1551,7 @@ section { padding: var(--space-5) 0; }
 .testimonials { padding: var(--space-5) 0; background: var(--sable-fonce); }
 .testi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--space-3);
   margin-top: var(--space-4);
 }
