@@ -322,25 +322,26 @@ p { margin: 0 0 var(--space-2); color: var(--encre-80); }
   .main-nav {
     position: absolute;
     top: 100%; left: 0; right: 0;
-    background: var(--sable);
+    background: var(--blanc);
     flex-direction: column;
     align-items: stretch;
-    gap: var(--space-3);
+    gap: 4px;
     padding: 0 var(--space-3);
     max-height: 0;
     overflow: hidden;
     visibility: hidden;
-    transition: max-height 0.3s ease, visibility 0s linear 0.3s;
+    border-radius: 0 0 22px 22px;
+    transition: max-height 0.35s cubic-bezier(.22,1,.36,1), visibility 0s linear 0.35s;
     z-index: 99;
   }
   .main-nav.open {
     max-height: 80vh;
     overflow-y: auto;
     visibility: visible;
-    padding: var(--space-4) var(--space-3);
-    border-top: 1px solid var(--ligne);
-    box-shadow: 0 20px 40px rgba(18, 48, 61, 0.14);
-    transition: max-height 0.3s ease;
+    padding: var(--space-3) var(--space-3) var(--space-4);
+    border-top: 3px solid var(--turquoise);
+    box-shadow: 0 24px 48px rgba(18, 48, 61, 0.22);
+    transition: max-height 0.35s cubic-bezier(.22,1,.36,1);
   }
   .nav-toggle { display: inline-flex; }
   .logo img { height: 68px; }
@@ -351,7 +352,7 @@ p { margin: 0 0 var(--space-2); color: var(--encre-80); }
      actif/survolé. */
   .main-nav > a::after, .nav-mega-trigger::after { content: none; }
   .main-nav > a, .nav-mega-trigger {
-    padding: 12px 12px 12px 14px;
+    padding: 13px 12px 13px 14px;
     border-left: 3px solid transparent;
     border-radius: var(--radius-sm);
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
@@ -360,6 +361,26 @@ p { margin: 0 0 var(--space-2); color: var(--encre-80); }
   .nav-mega-trigger:hover, .nav-mega-trigger.active {
     background: var(--sable-fonce);
     border-left-color: var(--turquoise);
+  }
+  .main-nav > a:active, .nav-mega-trigger:active { background: var(--sable); }
+
+  /* Entrée en cascade : chaque onglet apparaît en fondu + léger
+     glissement, un peu après le précédent, au lieu d'un dépliage plat. */
+  .main-nav > * { opacity: 0; }
+  .main-nav.open > * { animation: nav-item-in 0.4s ease both; }
+  .main-nav.open > *:nth-child(1) { animation-delay: 0.03s; }
+  .main-nav.open > *:nth-child(2) { animation-delay: 0.07s; }
+  .main-nav.open > *:nth-child(3) { animation-delay: 0.11s; }
+  .main-nav.open > *:nth-child(4) { animation-delay: 0.15s; }
+  .main-nav.open > *:nth-child(5) { animation-delay: 0.19s; }
+  .main-nav.open > *:nth-child(6) { animation-delay: 0.23s; }
+  @keyframes nav-item-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .main-nav > * { opacity: 1; }
+    .main-nav.open > * { animation: none; }
   }
 
   .nav-item--mega { flex-direction: column; align-items: stretch; padding: 0; margin: 0; width: 100%; }
@@ -383,7 +404,9 @@ p { margin: 0 0 var(--space-2); color: var(--encre-80); }
     text-transform: none; letter-spacing: 0; font-weight: 500;
     font-size: 0.95rem; color: var(--encre-80);
     padding: 9px 0;
+    transition: color 0.2s ease;
   }
+  .nav-sub-tab:hover, .nav-sub-tab.active { color: var(--turquoise-fonce); }
   .nav-sub-tab::after { display: none; }
   .nav-sub::before { display: none; }
   .mega2 { display: none !important; }
