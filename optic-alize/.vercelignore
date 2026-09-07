@@ -1,11 +1,4 @@
-# Dossiers hors site web (app mobile, build, outils)
-node_modules/
-android/
-ios/
-www/
-mobile-src/
-mobile_flutter/
-resources/
+# Dossiers hors site web (outils, sources lourdes)
 scripts/
 collections/_sources/
 hero/_sources/
@@ -13,12 +6,7 @@ partners/_sources/
 connectees/_sources/
 actualites/_sources/
 
-# Fichiers projet / app, inutiles au site
-package.json
-package-lock.json
-capacitor.config.json
-APP-FLUTTER.md
-APP-MOBILE.md
+# Fichiers projet, inutiles au site
 *.md
 *.py
 
