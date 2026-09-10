@@ -37,6 +37,12 @@
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
   };
+  /* Libellés utilisés comme étiquette de colonne (attribut data-label)
+     quand les tableaux .ad-table basculent en cartes empilées sur mobile. */
+  var LABEL_COLONNE = {
+    nom: "Nom", marque: "Marque", type: "Type", genre: "Genre", forme: "Forme",
+    prix: "Prix", frequence: "Fréquence", correction: "Correction",
+  };
 
   /* ---------- donnees ---------- */
   function loadProduits() {
@@ -349,7 +355,7 @@
           '<tr data-id="' + esc(p.id) + '">' +
           '<td class="ad-thumb">' + vignette(p) + "</td>" +
           colonnes.map(function (k) {
-            return "<td>" + (k === "prix" ? (Number(p.prix) || 0).toLocaleString("fr-FR") + " F" : esc(p[k])) + "</td>";
+            return '<td data-label="' + LABEL_COLONNE[k] + '">' + (k === "prix" ? (Number(p.prix) || 0).toLocaleString("fr-FR") + " F" : esc(p[k])) + "</td>";
           }).join("") +
           '<td class="ad-row-act">' +
           '<button data-edit>Modifier</button>' +
@@ -481,8 +487,8 @@
         return (
           '<tr data-i="' + i + '">' +
           '<td class="ad-thumb">' + (v.photo ? '<img src="' + esc(v.photo) + '" alt="" onerror="this.style.visibility=\'hidden\'">' : "") + "</td>" +
-          "<td>" + esc(v.titre) + "</td>" +
-          '<td class="ad-clip">' + esc((v.resume || "").slice(0, 90)) + "...</td>" +
+          '<td data-label="Titre">' + esc(v.titre) + "</td>" +
+          '<td class="ad-clip" data-label="Description">' + esc((v.resume || "").slice(0, 90)) + "...</td>" +
           '<td class="ad-row-act"><button data-edit>Modifier</button><button data-del class="danger">Suppr.</button></td></tr>'
         );
       }).join("") +
@@ -578,9 +584,9 @@
             return (
               '<tr data-i="' + i + '">' +
               '<td class="ad-thumb">' + (p.image ? '<img src="' + esc(p.image) + '" alt="" onerror="this.style.visibility=\'hidden\'">' : "") + "</td>" +
-              "<td>" + esc(p.titre) + "</td>" +
-              '<td class="ad-clip">' + esc((p.texte || "").slice(0, 90)) + ((p.texte || "").length > 90 ? "…" : "") + "</td>" +
-              "<td>" + (p.cta && p.cta.label ? esc(p.cta.label) : "—") + "</td>" +
+              '<td data-label="Titre">' + esc(p.titre) + "</td>" +
+              '<td class="ad-clip" data-label="Texte">' + esc((p.texte || "").slice(0, 90)) + ((p.texte || "").length > 90 ? "…" : "") + "</td>" +
+              '<td data-label="Bouton">' + (p.cta && p.cta.label ? esc(p.cta.label) : "—") + "</td>" +
               '<td class="ad-row-act">' +
               (i > 0 ? '<button data-up title="Monter">↑</button>' : "") +
               (i < liste.length - 1 ? '<button data-down title="Descendre">↓</button>' : "") +
@@ -819,7 +825,7 @@
       (liste.length
         ? '<div class="ad-table-wrap"><table class="ad-table"><thead><tr><th>E-mail</th><th>Nom</th><th>Source</th><th>Date</th></tr></thead><tbody>' +
           liste.map(function (e) {
-            return "<tr><td>" + esc(e.email) + "</td><td>" + esc(e.nom) + "</td><td>" + esc(e.source) + "</td><td>" + esc(e.date) + "</td></tr>";
+            return "<tr><td data-label=\"E-mail\">" + esc(e.email) + "</td><td data-label=\"Nom\">" + esc(e.nom) + "</td><td data-label=\"Source\">" + esc(e.source) + "</td><td data-label=\"Date\">" + esc(e.date) + "</td></tr>";
           }).join("") +
           "</tbody></table></div>"
         : '<p class="ad-empty">Aucun e-mail collecte pour le moment.</p>');
@@ -886,8 +892,8 @@
         ? '<div class="ad-table-wrap"><table class="ad-table"><thead><tr><th>E-mail</th><th>Échéance</th><th>Programmé le</th><th>Statut</th></tr></thead><tbody>' +
           rap.map(function (r) {
             var echu = (r.echeance || "") <= aujourdhui;
-            return "<tr><td>" + esc(r.email) + "</td><td>" + esc(r.echeance || "") + "</td><td>" + esc(r.cree || "") +
-              '</td><td>' + (echu ? '<b style="color:var(--corail)">À relancer</b>' : "En attente") + "</td></tr>";
+            return "<tr><td data-label=\"E-mail\">" + esc(r.email) + "</td><td data-label=\"Échéance\">" + esc(r.echeance || "") + "</td><td data-label=\"Programmé le\">" + esc(r.cree || "") +
+              '</td><td data-label="Statut">' + (echu ? '<b style="color:var(--corail)">À relancer</b>' : "En attente") + "</td></tr>";
           }).join("") +
           "</tbody></table></div>"
         : '<p class="ad-empty">Aucun rappel programmé pour le moment.</p>');

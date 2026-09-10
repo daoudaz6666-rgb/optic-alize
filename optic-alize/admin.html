@@ -116,6 +116,35 @@
   .ad-row-act button { background: none; border: none; color: var(--turquoise-fonce); font-family: var(--font-cg); font-weight: 600; font-size: 0.95rem; cursor: pointer; padding: 5px 8px; }
   .ad-row-act button.danger { color: var(--corail); }
 
+  /* Tableaux -> cartes empilées sur mobile (au lieu du défilement
+     horizontal) : chaque ligne devient une carte, chaque cellule une
+     rangée "étiquette : valeur" via l'attribut data-label. */
+  @media (max-width: 700px) {
+    .ad-table-wrap { background: transparent; border: none; overflow-x: visible; }
+    .ad-table, .ad-table thead, .ad-table tbody, .ad-table tr, .ad-table th, .ad-table td { display: block; }
+    .ad-table thead { display: none; }
+    .ad-table tr {
+      background: #fff; border: 1px solid var(--ligne); border-radius: 14px;
+      padding: 6px 16px; margin-bottom: 12px;
+    }
+    .ad-table td {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 10px 0; border-bottom: 1px solid var(--ligne);
+      white-space: normal; text-align: right;
+    }
+    .ad-table td:last-child { border-bottom: none; }
+    .ad-table td[data-label]::before {
+      content: attr(data-label);
+      flex-shrink: 0; text-align: left;
+      font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em;
+      color: var(--nuage); font-weight: 600;
+    }
+    .ad-table td.ad-thumb { justify-content: flex-start; padding-top: 14px; }
+    .ad-table td.ad-thumb img, .ad-table td.ad-thumb svg { width: 68px; height: 50px; }
+    .ad-table td.ad-clip { max-width: none; overflow: visible; text-overflow: clip; }
+    .ad-table td.ad-row-act { justify-content: flex-end; gap: 6px; padding-bottom: 12px; }
+  }
+
   /* ---- modal / form ---- */
   .ad-modal-ov { position: fixed; inset: 0; background: rgba(18,48,61,0.45); display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px; overflow-y: auto; z-index: 1000; }
   .ad-modal { background: #fff; border-radius: 16px; width: min(580px, 100%); }
