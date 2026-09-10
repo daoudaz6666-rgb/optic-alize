@@ -196,7 +196,7 @@
       '      <label>Mot de passe<input type="password" name="pass" autocomplete="current-password" required></label>' +
       '      <button type="submit" class="ad-btn ad-btn--primary">Se connecter</button>' +
       "    </form>" +
-      '    <p class="ad-hint">Identifiants par defaut : <code>admin</code> / <code>optic-alize-2026</code> &mdash; a changer dans <code>js/admin-config.js</code>.</p>' +
+      '    <p class="ad-hint">Pas d\'identifiants ? Demandez-les a la personne qui gere le site (ils se configurent dans <code>js/admin-config.js</code>).</p>' +
       '    <p class="ad-back"><a href="index.html">&larr; Retour au site</a></p>' +
       "  </div>" +
       "</div>";
@@ -246,6 +246,7 @@
       "    </nav>" +
       '    <div class="ad-side-foot">' +
       '      <a href="index.html" target="_blank">Voir le site &nearr;</a>' +
+      '      <button id="ad-share" title="Copier le lien de cette page admin, a partager avec un autre administrateur">Copier le lien admin</button>' +
       '      <button id="ad-logout">Se deconnecter</button>' +
       "    </div>" +
       "  </aside>" +
@@ -258,6 +259,14 @@
     document.getElementById("ad-logout").addEventListener("click", function () {
       sessionStorage.removeItem(KEY_SES);
       vueLogin();
+    });
+    document.getElementById("ad-share").addEventListener("click", function (e) {
+      var url = window.location.origin + window.location.pathname;
+      if (navigator.clipboard) navigator.clipboard.writeText(url);
+      var btn = e.currentTarget;
+      var txt = btn.textContent;
+      btn.textContent = "Lien copie ✓";
+      setTimeout(function () { btn.textContent = txt; }, 1800);
     });
 
     var c = document.getElementById("ad-content");
