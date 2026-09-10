@@ -7,7 +7,7 @@
 
 const CART_KEY = "optic-alize-panier";
 const BOUTIQUE_WHATSAPP = "22675093939"; // à remplacer par le vrai numéro (format international, sans le +)
-const BOUTIQUE_EMAIL = "commandes@opticalize.bf"; // à remplacer par la vraie adresse
+const BOUTIQUE_EMAIL = "daoudazongo737@gmail.com"; // adresse de test — à remplacer par la vraie adresse boutique
 
 function getCart() {
   try {
