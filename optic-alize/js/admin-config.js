@@ -12,5 +12,5 @@
 
 const ADMIN_CONFIG = {
   identifiant: "admin",
-  motDePasse: "optic-alize-2026",
+  motDePasse: "admin0123",
 };
