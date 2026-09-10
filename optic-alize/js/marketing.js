@@ -9,7 +9,7 @@
    ============================================================ */
 const MKT = {
   /* Adresse publique du site (pour le partage sur Facebook / WhatsApp). */
-  siteUrl: "https://www.opticalize.com",
+  siteUrl: "https://opticalize-bf.com",
 
   /* Campagne promo — pilotable depuis la page admin (onglet « Promotions »).
      Quand actif = true : barre en haut + compte à rebours + pastille flottante,

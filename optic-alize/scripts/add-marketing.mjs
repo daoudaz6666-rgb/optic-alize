@@ -9,7 +9,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
-const SITE_URL = "https://www.opticalize.com";
+const SITE_URL = "https://opticalize-bf.com";
 const OG_IMAGE = SITE_URL + "/hero-poster.jpg";
 
 const pages = readdirSync(ROOT).filter((f) => f.endsWith(".html") && f !== "admin.html");
