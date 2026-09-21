@@ -1,7 +1,7 @@
 Photos des montures
 ===================
 
-m001.jpg .. m008.jpg : une photo par modèle (déjà en place).
+m001.jpg .. m016.jpg : une photo par modèle (déjà en place).
 Pour remplacer un modèle, écrase simplement le fichier correspondant :
 
   m001.jpg -> Alizé Ovale Écaille       (vue / femme)
@@ -12,6 +12,14 @@ Pour remplacer un modèle, écrase simplement le fichier correspondant :
   m006.jpg -> Brise Ronde Dorée          (vue / femme)
   m007.jpg -> Sirocco Ovale              (vue / homme)
   m008.jpg -> Tramontane Carrée          (soleil / femme)
+  m009.jpg -> Carrera Rectangulaire Écaille (vue / homme)  — vraie photo
+  m010.jpg -> Carrera Acétate Noire      (vue / homme)  — vraie photo
+  m012.jpg -> Hugo Acétate Noire         (vue / homme)  — vraie photo
+  m013.jpg -> Hugo Métal Bleu            (vue / homme)  — vraie photo
+            (+ m013-2.jpg, m013-3.jpg : photos supplémentaires, champ « photos » dans produits.js)
+  m014.jpg -> Cartier Sans Monture Or    (vue / homme)  — vraie photo
+  m015.jpg -> Fred Câble Or & Acier      (vue / homme)  — vraie photo
+  m016.jpg -> Fred Sans Monture Câble    (vue / homme)  — vraie photo
 
 Format : JPG, ratio 4:3 (1000 x 750 px), < 150 Ko.
 Si un fichier est absent, le pictogramme SVG reprend la place automatiquement.
