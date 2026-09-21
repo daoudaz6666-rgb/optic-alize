@@ -643,6 +643,56 @@ section { padding: var(--space-5) 0; }
 }
 .map-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 @media (max-width: 640px) { .map-embed { aspect-ratio: 4 / 3; border-radius: var(--radius-sm); } }
+
+/* Liste des agences sous la carte */
+.agences-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: var(--space-3) 0; }
+.agence-chip {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--ligne);
+  background: var(--blanc);
+  color: var(--encre);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.agence-chip.is-active { background: var(--turquoise-fonce); border-color: var(--turquoise-fonce); color: var(--blanc); }
+.agences-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--space-2); }
+.agence-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--space-3);
+  background: var(--blanc);
+  border: 1px solid var(--ligne);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color .2s, box-shadow .2s;
+}
+.agence-card[hidden] { display: none; }
+.agence-card:hover, .agence-card:focus-visible { border-color: var(--turquoise); }
+.agence-card.is-active { border-color: var(--turquoise-fonce); box-shadow: 0 0 0 2px var(--turquoise); }
+.agence-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.agence-head h4 { font-family: var(--font-body); font-size: 1rem; font-weight: 700; margin: 0; }
+.agence-badge { flex: none; padding: 2px 10px; border-radius: 999px; background: var(--or-clair); color: var(--encre); font-size: 0.72rem; font-weight: 700; }
+.agence-adr { margin: 0; font-size: 0.9rem; color: var(--nuage); }
+.agence-tel { margin: 0; font-size: 0.9rem; font-weight: 600; }
+.agence-tel a, .agence-iti { color: var(--turquoise-fonce); }
+.agence-iti { margin-top: auto; font-size: 0.85rem; font-weight: 600; }
+
+/* Version déroulante : un bloc repliable par ville */
+.agences-villes { display: flex; flex-direction: column; gap: 10px; margin-top: var(--space-3); }
+.agences-ville { border: 1px solid var(--ligne); border-radius: var(--radius-sm); background: var(--blanc); }
+.agences-ville summary {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; cursor: pointer; font-weight: 700; list-style: none;
+}
+.agences-ville summary::-webkit-details-marker { display: none; }
+.agences-ville summary::after { content: "▾"; color: var(--turquoise-fonce); transition: transform .2s; margin-left: auto; }
+.agences-ville[open] summary::after { transform: rotate(180deg); }
+.agences-count { font-weight: 500; font-size: 0.82rem; color: var(--nuage); }
+.agences-ville .agences-grid { padding: 0 var(--space-2) var(--space-2); }
 .cat-card svg { width: 44px; height: 30px; margin-bottom: var(--space-2); color: var(--turquoise); }
 .cat-card a { color: var(--turquoise-fonce); font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; margin-top: var(--space-1); }
 
@@ -669,55 +719,6 @@ section { padding: var(--space-5) 0; }
   .value-item h4 { font-size: 0.9rem; }
   .value-item p { font-size: 0.78rem; line-height: 1.45; }
 }
-
-/* ============ ÉQUIPE (À propos) ============ */
-.team-section { margin-top: 64px; }
-.team-subtitle {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--turquoise-fonce);
-  margin-bottom: var(--space-3);
-}
-.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); }
-.team-card {
-  background: var(--blanc);
-  border: 1px solid var(--ligne);
-  border-radius: var(--radius);
-  padding: var(--space-4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.team-card:hover { transform: translateY(-4px); box-shadow: 0 18px 34px rgba(18,48,61,0.08); }
-.team-avatar {
-  width: 84px;
-  height: 84px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: var(--sable-fonce);
-}
-.team-avatar--initials {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  color: var(--turquoise-fonce);
-  background: var(--sable);
-  border: 1px solid var(--ligne);
-}
-.team-info { display: flex; flex-direction: column; gap: 2px; }
-.team-name { font-weight: 600; color: var(--encre); }
-.team-role { font-size: 0.88rem; color: var(--nuage); }
-.team-city { font-size: 0.78rem; color: var(--turquoise-fonce); font-family: var(--font-mono); margin-top: 4px; }
-@media (max-width: 980px) { .team-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 520px) { .team-grid { grid-template-columns: 1fr; } }
 
 /* ============ PARTENAIRES (bandeau défilant) ============ */
 .partners { padding: var(--space-5) 0; overflow: hidden; }
@@ -1067,6 +1068,13 @@ section { padding: var(--space-5) 0; }
 .pd-media { background: var(--sable-fonce); border-radius: var(--radius); aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; position: sticky; top: 100px; }
 .pd-media svg { width: 60%; }
 .pd-media .product-photo { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
+.pd-gallery { position: sticky; top: 100px; }
+.pd-gallery .pd-media { position: static; }
+.pd-media--photo { aspect-ratio: 4/3; }
+.pd-thumbs { display: flex; gap: 10px; margin-top: 10px; }
+.pd-thumb { width: 72px; aspect-ratio: 4/3; padding: 0; border: 2px solid var(--ligne); border-radius: var(--radius-sm); overflow: hidden; background: var(--blanc); cursor: pointer; }
+.pd-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pd-thumb.is-active { border-color: var(--turquoise-fonce); }
 .pd-price { font-family: var(--font-mono); font-size: 1.8rem; margin: var(--space-2) 0; }
 .pd-options { margin: var(--space-3) 0; }
 .pd-options label { display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--nuage); }
@@ -1305,7 +1313,7 @@ section { padding: var(--space-5) 0; }
   .value-grid { grid-template-columns: 1fr 1fr; }
   .product-grid { grid-template-columns: 1fr 1fr; }
   .product-detail { grid-template-columns: 1fr; }
-  .pd-media { position: static; }
+  .pd-media, .pd-gallery { position: static; }
 }
 @media (max-width: 760px) {
   /* Mur de photos du hero : hauteur réduite + contenu plus compact

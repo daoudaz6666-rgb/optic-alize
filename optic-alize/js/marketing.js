@@ -120,7 +120,7 @@ const MKT = {
       description: "Réseau d'opticiens au Burkina Faso : montures, lunettes de soleil et lentilles de contact.",
       url: MKT.siteUrl,
       telephone: "+22675093939",
-      email: "contact@opticalize.bf",
+      email: "pdg.alize@gmail.com",
       image: MKT.siteUrl + "/hero-poster.jpg",
       areaServed: ["Ouagadougou", "Bobo-Dioulasso", "Koudougou", "Burkina Faso"],
       address: { "@type": "PostalAddress", addressCountry: "BF", addressLocality: "Ouagadougou" },
