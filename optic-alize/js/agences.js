@@ -15,6 +15,8 @@
    Emplacements :
    - <div data-agences>…</div> : carte + boutons de ville + grille.
      <div data-agences="deroulant"> : carte + un déroulant par ville.
+     <div data-agences="menu-mobile"> : grille sur ordinateur ; sur mobile,
+       deux menus déroulants (ville, puis agence de cette ville).
      (le contenu du div sert de repli si JavaScript est désactivé).
    - <select data-agences-select> : liste déroulante des agences
      (pour un formulaire ; les agences pas encore ouvertes sont grisées).
@@ -74,6 +76,7 @@ const VILLES_AGENCES = ["Ouagadougou", "Bobo-Dioulasso", "Koudougou"];
 
   function monter(conteneur) {
     const deroulant = conteneur.dataset.agences === "deroulant";
+    const menuMobile = conteneur.dataset.agences === "menu-mobile";
     const chips =
       '<button type="button" class="agence-chip is-active" data-ville="">Toutes</button>' +
       VILLES_AGENCES.map((v) => '<button type="button" class="agence-chip" data-ville="' + esc(v) + '">' + esc(v) + "</button>").join("");
@@ -93,10 +96,20 @@ const VILLES_AGENCES = ["Ouagadougou", "Bobo-Dioulasso", "Koudougou"];
       : '<div class="agences-chips" role="group" aria-label="Filtrer par ville">' + chips + "</div>" +
         '<div class="agences-grid">' + AGENCES.map(carteAgence).join("") + "</div>";
 
+    const menus = menuMobile
+      ? '<div class="agences-menu">' +
+        '<label>Ville<select class="filter-select agences-sel-ville"><option value="">Choisir une ville…</option>' +
+        VILLES_AGENCES.map((v) => '<option value="' + esc(v) + '">' + esc(v) + "</option>").join("") +
+        "</select></label>" +
+        '<label>Agence<select class="filter-select agences-sel-agence" disabled><option value="">Choisir d\'abord une ville</option></select></label>' +
+        '<div class="agences-detail" aria-live="polite"></div>' +
+        "</div>"
+      : "";
+
     conteneur.innerHTML =
       '<div class="agences-loc">' +
       '<div class="map-embed"><iframe src="' + urlEmbed("Optic Alizé, Ouagadougou, Burkina Faso") + '" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Carte des agences Optic Alizé" allowfullscreen></iframe></div>' +
-      liste +
+      (menuMobile ? '<div class="agences-desktop">' + liste + "</div>" + '<div class="agences-mobile">' + menus + "</div>" : liste) +
       "</div>";
 
     const iframe = conteneur.querySelector("iframe");
@@ -132,6 +145,46 @@ const VILLES_AGENCES = ["Ouagadougou", "Bobo-Dioulasso", "Koudougou"];
         afficher("Optic Alizé, " + (ville || "Ouagadougou") + ", Burkina Faso");
       });
     });
+
+    if (menuMobile) {
+      const selVille = conteneur.querySelector(".agences-sel-ville");
+      const selAgence = conteneur.querySelector(".agences-sel-agence");
+      const detail = conteneur.querySelector(".agences-detail");
+
+      function montrer(i) {
+        detail.innerHTML = i === null ? "" : carteAgence(AGENCES[i], i);
+        const c = detail.querySelector(".agence-card");
+        if (c) {
+          c.removeAttribute("role");
+          c.removeAttribute("tabindex");
+          c.classList.add("is-active");
+        }
+        if (i !== null) afficher(requeteCarte(AGENCES[i]));
+      }
+
+      selVille.addEventListener("change", () => {
+        const ville = selVille.value;
+        selAgence.innerHTML = "";
+        detail.innerHTML = "";
+        if (!ville) {
+          selAgence.disabled = true;
+          selAgence.innerHTML = '<option value="">Choisir d\'abord une ville</option>';
+          afficher("Optic Alizé, Ouagadougou, Burkina Faso");
+          return;
+        }
+        const idx = AGENCES.map((a, i) => (a.ville === ville ? i : -1)).filter((i) => i >= 0);
+        selAgence.disabled = false;
+        selAgence.innerHTML =
+          (idx.length > 1 ? '<option value="">Choisir une agence… (' + idx.length + ")</option>" : "") +
+          idx.map((i) => '<option value="' + i + '">Agence ' + esc(AGENCES[i].nom) + "</option>").join("");
+        afficher("Optic Alizé, " + ville + ", Burkina Faso");
+        if (idx.length === 1) montrer(idx[0]);
+      });
+
+      selAgence.addEventListener("change", () => {
+        montrer(selAgence.value === "" ? null : Number(selAgence.value));
+      });
+    }
 
     cartes.forEach((c) => {
       const i = Number(c.dataset.i);

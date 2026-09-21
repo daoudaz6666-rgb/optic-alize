@@ -693,6 +693,16 @@ section { padding: var(--space-5) 0; }
 .agences-ville[open] summary::after { transform: rotate(180deg); }
 .agences-count { font-weight: 500; font-size: 0.82rem; color: var(--nuage); }
 .agences-ville .agences-grid { padding: 0 var(--space-2) var(--space-2); }
+
+/* Accueil : grille sur ordinateur, menus déroulants ville / agence sur mobile */
+.agences-mobile { display: none; }
+.agences-menu { display: flex; flex-direction: column; gap: 14px; margin-top: var(--space-3); }
+.agences-menu label { display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; font-weight: 600; }
+.agences-menu .filter-select { width: 100%; font-size: 1rem; padding: 12px 14px; }
+@media (max-width: 760px) {
+  .agences-desktop { display: none; }
+  .agences-mobile { display: block; }
+}
 .cat-card svg { width: 44px; height: 30px; margin-bottom: var(--space-2); color: var(--turquoise); }
 .cat-card a { color: var(--turquoise-fonce); font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; margin-top: var(--space-1); }
 
