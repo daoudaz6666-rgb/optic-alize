@@ -7,10 +7,14 @@
      logo : "partners/ray-ban.jpg"     (optionnel ; sinon le nom s'affiche en texte)
 
    ⚠️ N'affiche que des logos que tu es autorisé à utiliser
-   (marques réellement distribuées en agence).
+   (marques réellement distribuées en agence, ou partenaires
+   institutionnels/entreprises réels).
 
    Le bandeau se dédouble tout seul pour un défilement sans couture.
    Une seule ligne.
+
+   Les partenaires assurance ont leur propre bandeau juste en dessous
+   (voir js/assurances.js) — ne pas les dupliquer ici.
    ============================================================ */
 
 const PARTENAIRES = [
@@ -23,6 +27,20 @@ const PARTENAIRES = [
   { nom: "Marc Jacobs", logo: "partners/marc-jacobs.jpg" },
   { nom: "Hermès", logo: "partners/hermes.jpg" },
   { nom: "Maybach", logo: "partners/maybach.jpg" },
+  // Partenaires institutionnels / entreprises
+  { nom: "SAP Olympic", logo: "partners/sap-olympic.jpg" },
+  { nom: "Vamso", logo: "partners/vamso.jpg" },
+  { nom: "ENAM", logo: "partners/enam.jpg" },
+  { nom: "BUMIGEB", logo: "partners/bumigeb.jpg" },
+  { nom: "SONATUR", logo: "partners/sonatur.jpg" },
+  { nom: "La Poste Burkina Faso", logo: "partners/la-poste.jpg" },
+  { nom: "RCPB", logo: "partners/rcpb.jpg" },
+  { nom: "CNSS", logo: "partners/cnss.jpg" },
+  { nom: "ONEA", logo: "partners/onea.jpg" },
+  { nom: "Chambre de Commerce et d'Industrie du Burkina Faso", logo: "partners/chambre-commerce.jpg" },
+  { nom: "SONABEL", logo: "partners/sonabel.jpg" },
+  { nom: "Dayo", logo: "partners/dayo.jpg" },
+  { nom: "Chronopost", logo: "partners/chronopost.jpg" },
 ];
 
 function elementPartenaire(p) {

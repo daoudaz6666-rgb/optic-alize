@@ -18,7 +18,15 @@
    ============================================================ */
 
 const ASSURANCES = [
-  // { nom: "Nom de l'assureur", logo: "assurances/nom-assureur.jpg" },
+  { nom: "UAB Assurances", logo: "assurances/uab-assurances.jpg" },
+  { nom: "SONAR Assurances", logo: "assurances/sonar-assurances.jpg" },
+  { nom: "OLEA Insurance Solutions", logo: "assurances/olea.jpg" },
+  { nom: "Yelen Assurance", logo: "assurances/yelen-assurance.jpg" },
+  { nom: "SUNU Assurances", logo: "assurances/sunu-assurances.jpg" },
+  { nom: "VISTA Assurances", logo: "assurances/vista-assurances.jpg" },
+  { nom: "Générale des Assurances", logo: "assurances/generale-des-assurances.jpg" },
+  { nom: "CORIS Assurances", logo: "assurances/coris-assurances.jpg" },
+  { nom: "MAADO", logo: "assurances/maado.jpg" },
 ];
 
 function elementAssurance(a) {
