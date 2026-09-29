@@ -763,8 +763,9 @@ section { padding: var(--space-5) 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 66px;
-  padding: 0 34px;
+  height: 88px;
+  width: 168px;
+  padding: 8px 16px;
   border: 1px solid var(--ligne);
   border-radius: var(--radius-sm);
   background: var(--blanc);
@@ -777,7 +778,7 @@ section { padding: var(--space-5) 0; }
   color: var(--nuage);
   white-space: nowrap;
 }
-.partner-item img { height: 40px; width: auto; object-fit: contain; }
+.partner-item img { max-height: 100%; max-width: 100%; width: auto; height: auto; object-fit: contain; }
 @media (prefers-reduced-motion: reduce) {
   .marquee-row { animation: none; }
   .marquee { overflow-x: auto; }
