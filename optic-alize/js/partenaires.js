@@ -21,11 +21,9 @@ const PARTENAIRES = [
   { nom: "Ray-Ban", logo: "partners/ray-ban.jpg" },
   { nom: "Gucci", logo: "partners/gucci.jpg" },
   { nom: "Cartier", logo: "partners/cartier.jpg" },
-  { nom: "Christian Dior", logo: "partners/dior.jpg" },
   { nom: "Burberry", logo: "partners/burberry.jpg" },
   { nom: "Hugo Boss", logo: "partners/hugo-boss.jpg" },
   { nom: "Marc Jacobs", logo: "partners/marc-jacobs.jpg" },
-  { nom: "Hermès", logo: "partners/hermes.jpg" },
   { nom: "Maybach", logo: "partners/maybach.jpg" },
 ];
 
