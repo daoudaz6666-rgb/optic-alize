@@ -117,7 +117,7 @@ const MKT = {
       "@context": "https://schema.org",
       "@type": "Optician",
       name: "Optic Alizé",
-      description: "Réseau d'opticiens au Burkina Faso : montures, lunettes de soleil et lentilles de contact.",
+      description: "Réseau d'opticiens au Burkina Faso : montures de vue, lunettes de soleil et verres correcteurs.",
       url: MKT.siteUrl,
       telephone: "+22675093939",
       email: "pdg.alize@gmail.com",

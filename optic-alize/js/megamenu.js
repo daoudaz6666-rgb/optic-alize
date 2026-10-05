@@ -64,15 +64,6 @@
       ],
       img: ["univers-lentilles.jpg", "Le verre fait la moitié de vos lunettes"],
     },
-    lentilles: {
-      tout: ["Voir les lentilles", "lentilles.html"],
-      cols: [
-        { t: "Par fréquence", l: [["Journalières", "lentilles.html?frequence=journaliere"], ["Mensuelles", "lentilles.html?frequence=mensuelle"]] },
-        { t: "Par correction", l: [["Myopie", "lentilles.html?correction=myopie"], ["Hypermétropie", "lentilles.html?correction=hypermetropie"], ["Astigmatie", "lentilles.html?correction=astigmatie"], ["Presbytie", "lentilles.html?correction=presbytie"]] },
-        { t: "Et aussi", l: [["Adaptation de lentilles", "contact.html?tab=rdv"], ["Entretien des lentilles", "conseils.html"], ["Nous contacter", "contact.html"]] },
-      ],
-      img: ["univers-lentilles.jpg", "Lentilles de contact"],
-    },
     connectees: {
       tout: ["Découvrir les lunettes connectées", "connectees.html"],
       cols: [

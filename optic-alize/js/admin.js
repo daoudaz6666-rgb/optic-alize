@@ -222,7 +222,6 @@
   var ONGLETS = [
     { k: "dashboard", l: "Tableau de bord" },
     { k: "montures", l: "Montures" },
-    { k: "lentilles", l: "Lentilles" },
     { k: "verres", l: "Verres" },
     { k: "actualites", l: "Actualités" },
     { k: "conseils", l: "Conseils" },
@@ -308,7 +307,6 @@
     var st = statsVisite();
     var cartes = [
       { l: "Montures", v: montures().length },
-      { l: "Lentilles", v: lentilles().length },
       { l: "Verres", v: verres.length },
       { l: "Actualités", v: pubs.actualites.length },
       { l: "Conseils", v: pubs.conseils.length },
@@ -333,7 +331,6 @@
       barres("Montures par type", compter(montures(), "type")) +
       barres("Montures par forme", compter(montures(), "forme")) +
       barres("Montures par genre", compter(montures(), "genre")) +
-      barres("Lentilles par correction", compter(lentilles(), "correction")) +
       "</div>";
   }
 
@@ -542,7 +539,7 @@
      ============================================================ */
   var PAGES_CTA = [
     "", "contact.html?tab=rdv", "contact.html", "montures.html",
-    "montures.html?type=soleil", "lentilles.html", "verres.html",
+    "montures.html?type=soleil", "verres.html",
     "offres.html", "conseils.html", "actualites.html", "a-propos.html",
   ];
 
@@ -751,8 +748,7 @@
       '<div class="ad-field"><label>Date de fin (compte à rebours) — facultatif</label><input type="date" name="fin" value="' + esc(camp.fin || "") + '"></div>' +
       '<div class="ad-field"><label class="ad-check"><input type="checkbox" name="pastille" ' + (camp.pastille ? "checked" : "") + "> Afficher la pastille flottante « PROMO »</label></div>" +
       '<div class="ad-field"><label>Ruban « promo » sur les articles</label>' +
-      '<label class="ad-check"><input type="checkbox" name="c_montures" ' + (camp.cibles.indexOf("montures") >= 0 ? "checked" : "") + "> Montures</label>" +
-      '<label class="ad-check"><input type="checkbox" name="c_lentilles" ' + (camp.cibles.indexOf("lentilles") >= 0 ? "checked" : "") + "> Lentilles</label></div>" +
+      '<label class="ad-check"><input type="checkbox" name="c_montures" ' + (camp.cibles.indexOf("montures") >= 0 ? "checked" : "") + "> Montures</label></div>" +
       '<div class="ad-field"><label>Version (change-la pour ré-afficher la barre à ceux qui l\'ont fermée)</label><input type="text" name="version" value="' + esc(camp.version) + '"></div>' +
       '<div class="ad-modal-f" style="justify-content:flex-start;"><button type="submit" class="ad-btn ad-btn--primary">Enregistrer</button></div>' +
       "</form>";
@@ -775,7 +771,6 @@
       var f = c.querySelector("#promo-form");
       var cibles = [];
       if (f.c_montures.checked) cibles.push("montures");
-      if (f.c_lentilles.checked) cibles.push("lentilles");
       return {
         actif: f.actif.checked,
         titre: f.titre.value.trim(),

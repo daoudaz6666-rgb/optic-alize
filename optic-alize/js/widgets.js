@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cle: "bonjour",
       mots: ["bonjour", "salut", "bonsoir", "coucou", "hello", "bonne journee"],
       rep: () =>
-        "Bonjour 👋 Posez-moi une question sur nos lunettes, lentilles, verres, accessoires, nos services, nos offres ou nos agences.",
+        "Bonjour 👋 Posez-moi une question sur nos lunettes, verres, accessoires, nos services, nos offres ou nos agences.",
     },
     {
       cle: "finance",
@@ -257,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "reparation", "reglage", "ajustement", "garantie", "sav", "depannage", "opticien",
       ],
       rep: () =>
-        `Nos opticiens assurent : examen de vue, essayage de montures, adaptation de lentilles, réglage et réparation. L'ajustement de vos montures est gratuit à vie. Pour un créneau : <a href="contact.html?tab=rdv">prendre rendez-vous</a>.`,
+        `Nos opticiens assurent : examen de vue, essayage de montures, réglage et réparation. L'ajustement de vos montures est gratuit à vie. Pour un créneau : <a href="contact.html?tab=rdv">prendre rendez-vous</a>.`,
     },
     {
       cle: "montures",
@@ -270,9 +270,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       cle: "lentilles",
-      mots: ["lentille", "journaliere", "mensuelle", "myopie", "astigmat", "presbytie", "hypermetropie"],
+      mots: ["lentille"],
       rep: () =>
-        `Lentilles journalières et mensuelles pour myopie, astigmatie, hypermétropie et presbytie : <a href="lentilles.html">voir les lentilles</a>. L'adaptation se fait avec un opticien (<a href="contact.html?tab=rdv">rendez-vous</a>).`,
+        `Optic Alizé ne propose pas de lentilles de contact. Pour corriger votre vue, découvrez nos <a href="montures.html?type=vue">montures de vue</a> et nos <a href="verres.html">verres correcteurs</a>, ou <a href="contact.html?tab=rdv">prenez rendez-vous</a> avec un opticien.`,
     },
     {
       cle: "verres",
@@ -345,12 +345,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return it ? it.rep() : "";
   };
   const HORS_PERIMETRE =
-    `Désolé, je ne peux répondre qu'aux questions sur Optic Alizé : lunettes, lentilles, verres, accessoires, nos services, nos offres et nos agences. ` +
+    `Désolé, je ne peux répondre qu'aux questions sur Optic Alizé : lunettes, verres, accessoires, nos services, nos offres et nos agences. ` +
     `Pour toute autre demande, écrivez-nous sur <a href="${waLien()}" target="_blank" rel="noopener">WhatsApp</a>.`;
 
   const MENU = [
     { label: "Nos lunettes & marques", action: () => { bulle(rep("montures")); menu(); } },
-    { label: "Lentilles de contact", action: () => { bulle(rep("lentilles")); menu(); } },
     { label: "Nos verres", action: () => { bulle(rep("verres")); menu(); } },
     { label: "Nos offres", action: () => { bulle(rep("offres")); menu(); } },
     { label: "Prix & paiement", action: () => { bulle(rep("finance")); menu(); } },
@@ -368,7 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
     input.focus();
     if (!ouvertUneFois) {
       ouvertUneFois = true;
-      bulle("Bonjour 👋 Je suis l'assistant Optic Alizé. Posez-moi une question sur nos lunettes, lentilles, verres, services, offres ou agences.");
+      bulle("Bonjour 👋 Je suis l'assistant Optic Alizé. Posez-moi une question sur nos lunettes, verres, services, offres ou agences.");
       menu();
     }
   }

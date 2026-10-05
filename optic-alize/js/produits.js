@@ -62,13 +62,6 @@ const PRODUITS = [
   { id: "m014", categorie: "montures", type: "vue", genre: "homme", forme: "carre", nom: "Cartier Sans Monture Or", marque: "Cartier", prix: 30000, couleur: "#C79A4B", couleurs: ["#C79A4B"], photo: "montures/m014.jpg", desc: "Monture sans cerclage en métal doré, charnières au décor « C » signature, embouts noirs.", nouveau: true },
   { id: "m015", categorie: "montures", type: "vue", genre: "homme", forme: "carre", nom: "Fred Câble Or & Acier", marque: "Fred", prix: 30000, couleur: "#C79A4B", couleurs: ["#C79A4B"], photo: "montures/m015.jpg", desc: "Monture en métal doré, branches en câble torsadé acier et or, charnière signée F.", nouveau: true },
   { id: "m016", categorie: "montures", type: "vue", genre: "homme", forme: "carre", nom: "Fred Sans Monture Câble", marque: "Fred", prix: 30000, couleur: "#C79A4B", couleurs: ["#C79A4B"], photo: "montures/m016.jpg", desc: "Monture sans cerclage, branches en double câble acier et or, embouts écaille bleue.", nouveau: true },
-
-  { id: "l001", categorie: "lentilles", frequence: "journaliere", correction: "myopie", nom: "Alizé Day Myopie", marque: "OptiVision", prix: 12000, photo: "lentilles/lentilles-hydratees.jpg", desc: "Boîte de 30 lentilles journalières, confort longue durée." },
-  { id: "l002", categorie: "lentilles", frequence: "mensuelle", correction: "astigmatie", nom: "Alizé Tor Mensuelle", marque: "OptiVision", prix: 15000, photo: "lentilles/lentille-doigt.jpg", desc: "Boîte de 6 lentilles pour astigmatie, silicone hydrogel." },
-  { id: "l003", categorie: "lentilles", frequence: "journaliere", correction: "hypermetropie", nom: "Alizé Day Hypermétropie", marque: "OptiVision", prix: 12500, photo: "lentilles/paire-lentilles.jpg", desc: "Boîte de 30 lentilles, forte teneur en eau." },
-  { id: "l004", categorie: "lentilles", frequence: "mensuelle", correction: "myopie", nom: "Alizé Clear Mensuelle", marque: "OptiVision", prix: 14000, photo: "lentilles/lentille-doigt.jpg", desc: "Boîte de 6 lentilles, respirabilité optimale." },
-  { id: "l005", categorie: "lentilles", frequence: "bi-mensuelle", correction: "presbytie", nom: "Alizé Progressive", marque: "OptiVision", prix: 17000, photo: "lentilles/paire-lentilles.jpg", desc: "Boîte de 6, vision de près et de loin." },
-  { id: "l006", categorie: "lentilles", frequence: "journaliere", correction: "astigmatie", nom: "Alizé Day Tor", marque: "OptiVision", prix: 13500, photo: "lentilles/lentilles-hydratees.jpg", desc: "Boîte de 30 lentilles journalières pour astigmates." },
 ];
 
 /* Catalogue d'origine (avant toute modification via la page admin). */
