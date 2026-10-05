@@ -389,8 +389,8 @@
   /* Les plus belles collections de lunettes (marques). Déposez une image
      "collections/<slug>.jpg" (carré) pour remplacer le visuel dégradé. */
   const COLLECTIONS = [
-    "Ray-Ban", "Persol", "Maui Jim", "Randolph", "Gucci", "Hugo Boss",
-    "Cartier", "Chloé", "Marc Jacobs", "Dior", "Burberry", "Louis Vuitton"
+    "Ray-Ban", "Persol", "Maui Jim", "Randolph", "Hugo Boss",
+    "Cartier", "Chloé", "Marc Jacobs", "Dior", "Burberry"
   ];
   const slug = (s) => s.toLowerCase().replace(/[éèêë]/g,'e').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
   document.getElementById("collections-viewport").innerHTML = COLLECTIONS.map(nom => `
