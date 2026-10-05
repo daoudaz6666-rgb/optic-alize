@@ -716,7 +716,7 @@ section { padding: var(--space-4) 0; }
 .cat-card svg { width: 44px; height: 30px; margin-bottom: var(--space-2); color: var(--turquoise); }
 .cat-card a { color: var(--turquoise-fonce); font-weight: 600; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; margin-top: var(--space-1); }
 
-.value-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); }
+.value-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
 .value-item { text-align: left; }
 .value-item svg { width: 30px; height: 30px; color: var(--or); margin-bottom: var(--space-2); }
 .value-item h4 { font-family: var(--font-body); font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
@@ -725,6 +725,7 @@ section { padding: var(--space-4) 0; }
   /* 4 cartes bien nettes, alignées en grille 2x2 (2 en haut, 2 en bas)
      au lieu d'une longue liste empilée verticalement. */
   .value-grid { grid-template-columns: 1fr 1fr; gap: var(--space-2); }
+  .value-item:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .value-item {
     background: var(--blanc);
     border: 1px solid var(--ligne);
@@ -1331,6 +1332,7 @@ section { padding: var(--space-4) 0; }
      photo reste proportionnée au lieu de s'étirer en trop grand. */
   .cat-grid { grid-template-columns: 1fr 1fr; }
   .value-grid { grid-template-columns: 1fr 1fr; }
+  .value-item:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .product-grid { grid-template-columns: 1fr 1fr; }
   .product-detail { grid-template-columns: 1fr; }
   .pd-media, .pd-gallery { position: static; }
