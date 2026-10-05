@@ -27,6 +27,7 @@ const ASSURANCES = [
   { nom: "Générale des Assurances", logo: "assurances/generale-des-assurances.jpg" },
   { nom: "CORIS Assurances", logo: "assurances/coris-assurances.jpg" },
   { nom: "MAADO", logo: "assurances/maado.jpg" },
+  { nom: "VIMSO", logo: "assurances/vimso.jpg" },
 ];
 
 function elementAssurance(a) {

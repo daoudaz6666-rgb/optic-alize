@@ -595,13 +595,13 @@ p { margin: 0 0 var(--space-2); color: var(--encre-80); }
 .reveal.in-view { filter: blur(0); opacity: 1; transform: translateY(0); }
 
 /* ============ SECTIONS génériques ============ */
-section { padding: var(--space-5) 0; }
+section { padding: var(--space-4) 0; }
 .section-head {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   gap: var(--space-3);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
   flex-wrap: wrap;
 }
 .section-head--center { justify-content: center; text-align: center; }
@@ -1351,7 +1351,7 @@ section { padding: var(--space-5) 0; }
   .form-grid { grid-template-columns: 1fr; }
   .cart-row { grid-template-columns: 60px 1fr; grid-template-areas: "img name" "img price" "img qty"; }
   .hero-stats { flex-wrap: wrap; }
-  section { padding: var(--space-4) 0; }
+  section { padding: 28px 0; }
 
   /* "Nos univers" : cartes compactes en ligne (vignette + texte)
      au lieu d'une grande image pleine largeur, pour un rendu plus

@@ -27,9 +27,11 @@ const PARTENAIRES = [
   { nom: "Marc Jacobs", logo: "partners/marc-jacobs.jpg" },
   { nom: "Hermès", logo: "partners/hermes.jpg" },
   { nom: "Maybach", logo: "partners/maybach.jpg" },
-  // Partenaires institutionnels / entreprises
+];
+
+// Clients partenaires (institutions / entreprises qui nous font confiance)
+const CLIENTS = [
   { nom: "SAP Olympic", logo: "partners/sap-olympic.jpg" },
-  { nom: "Vamso", logo: "partners/vamso.jpg" },
   { nom: "ENAM", logo: "partners/enam.jpg" },
   { nom: "BUMIGEB", logo: "partners/bumigeb.jpg" },
   { nom: "SONATUR", logo: "partners/sonatur.jpg" },
@@ -52,9 +54,9 @@ function elementPartenaire(p) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const row = document.getElementById("partners-row-1");
-  if (!row) return;
-  const groupe = PARTENAIRES.map(elementPartenaire).join("");
   // répété pour remplir l'écran + boucle sans couture (l'animation décale de 50 %)
-  row.innerHTML = groupe.repeat(4);
+  const row = document.getElementById("partners-row-1");
+  if (row) row.innerHTML = PARTENAIRES.map(elementPartenaire).join("").repeat(4);
+  const rowClients = document.getElementById("clients-row-1");
+  if (rowClients) rowClients.innerHTML = CLIENTS.map(elementPartenaire).join("").repeat(4);
 });
