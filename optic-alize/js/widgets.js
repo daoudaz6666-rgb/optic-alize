@@ -55,64 +55,22 @@ function enregistrerEmail(email, source) {
   }
 }
 
-/* ---------- Statut d'ouverture (Lun–Sam 8h–19h) ---------- */
-const HORAIRES = { ouverture: 8, fermeture: 19 }; // heures, du lundi (1) au samedi (6)
-const JOURS = ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"];
-
-function heureOuaga() {
-  try {
-    return new Date(new Date().toLocaleString("en-US", { timeZone: "Africa/Ouagadougou" }));
-  } catch (e) {
-    return new Date();
-  }
-}
-
-function statutBoutique(d) {
-  d = d || heureOuaga();
-  const j = d.getDay();
-  const h = d.getHours() + d.getMinutes() / 60;
-  const ouvre = j >= 1 && j <= 6;
-  const ouvert = ouvre && h >= HORAIRES.ouverture && h < HORAIRES.fermeture;
-
-  let info;
-  if (ouvert) {
-    info = "Ferme à " + HORAIRES.fermeture + "h";
-  } else if (ouvre && h < HORAIRES.ouverture) {
-    info = "Ouvre à " + HORAIRES.ouverture + "h";
-  } else {
-    // trouver le prochain jour ouvré
-    let k = 1;
-    while (k <= 7) {
-      const jj = (j + k) % 7;
-      if (jj >= 1 && jj <= 6) {
-        info = k === 1 ? "Ouvre demain à " + HORAIRES.ouverture + "h" : "Ouvre " + JOURS[jj] + " à " + HORAIRES.ouverture + "h";
-        break;
-      }
-      k++;
-    }
-  }
-  return { ouvert, info, jour: j };
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-  /* ---------- Bouton "Ouvert / Fermé" dans la navbar ---------- */
+  /* ---------- Bouton "Horaires" dans la navbar (horaires propres à chaque agence) ---------- */
   const actions = document.querySelector(".header-actions");
   if (actions && !document.querySelector(".shop-status-wrap")) {
-    const st = statutBoutique();
     const wrap = document.createElement("div");
     wrap.className = "shop-status-wrap";
     wrap.innerHTML =
-      '<button class="shop-status ' + (st.ouvert ? "is-open" : "is-closed") + '" type="button" aria-expanded="false" aria-haspopup="true">' +
-      '<span class="dot"></span><span class="shop-status-label">' + (st.ouvert ? "Ouvert" : "Fermé") + "</span>" +
+      '<button class="shop-status" type="button" aria-expanded="false" aria-haspopup="true" aria-label="Horaires selon l\'agence">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>' +
+      '<span class="shop-status-label">Horaires</span>' +
       "</button>" +
       '<div class="shop-pop" hidden>' +
-      "<h5>" + (st.ouvert ? "Ouvert &middot; " : "Fermé &middot; ") + st.info + "</h5>" +
-      "<ul>" +
-      ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"].map(function (nom, i) {
-        return '<li class="' + (st.jour === i + 1 ? "today" : "") + '"><span>' + nom + "</span><span>8h – 19h</span></li>";
-      }).join("") +
-      '<li class="' + (st.jour === 0 ? "today" : "") + '"><span>Dimanche</span><span>Fermé</span></li>' +
-      "</ul></div>";
+      "<h5>Horaires selon l'agence</h5>" +
+      "<p>Chaque agence a ses propres horaires d'ouverture.</p>" +
+      '<a class="shop-pop-link" href="contact.html">Voir les horaires des agences →</a>' +
+      "</div>";
     actions.insertBefore(wrap, actions.firstChild);
 
     const btn = wrap.querySelector(".shop-status");
@@ -318,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "mail", "horaire", "heure", "ouvert", "ferme", "ouverture",
       ],
       rep: () =>
-        `Nos agences sont à Ouagadougou, Bobo-Dioulasso et Koudougou, ouvertes du lundi au samedi de 8h à 19h. Adresses, carte et numéros : <a href="contact.html">page Contact</a>. Tél : <a href="tel:+22675093939">+226 75 09 39 39</a>.`,
+        `Nos agences sont à Ouagadougou, Bobo-Dioulasso et Koudougou. Les horaires varient selon l'agence. Adresses, horaires, carte et numéros : <a href="contact.html">page Contact</a>. Tél : <a href="tel:+22675093939">+226 75 09 39 39</a>.`,
     },
     {
       cle: "compte",

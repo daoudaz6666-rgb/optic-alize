@@ -8,6 +8,8 @@
      ville    : "Ouagadougou"                 (obligatoire)
      adresse  : "Avenue Kwame N'Krumah…"      (obligatoire)
      tel      : ["70 21 63 63", "06 20 70 70"] (obligatoire)
+     horaires : [["Lun – Ven", "8h30 – 18h30"], ["Samedi", "9h – 17h"]]
+                                              (optionnel ; une ligne par créneau)
      bientot  : "Ouverture en 2026"           (optionnel)
      carte    : "texte cherché sur Google Maps" (optionnel ; sinon
                 déduit du nom + de la ville)
@@ -23,17 +25,28 @@
    ============================================================ */
 
 const AGENCES = [
-  { nom: "Prestige", ville: "Ouagadougou", adresse: "Avenue Kwame N'Krumah, face à l'immeuble CORIS BANK.", tel: ["70 21 63 63", "06 20 70 70"] },
-  { nom: "1200 Logements", ville: "Ouagadougou", adresse: "Immeuble el hadji SORE, au feu du rond-point, face à l'université Aube Nouvelle (ancien ISIG).", tel: ["71 24 41 70", "57 47 16 52"] },
-  { nom: "Ouaga 2000", ville: "Ouagadougou", adresse: "Avenue de la Jeunesse (ex France Afrique), même alignement que UBA et ECOBANK.", tel: ["72 44 18 18"] },
-  { nom: "Tampouy", ville: "Ouagadougou", adresse: "Route de Ouahigouya, sous l'immeuble du lycée privé la référence, face à l'agence SGBF et de l'alimentation bon samaritain.", tel: ["72 82 20 20", "57 47 16 53"] },
-  { nom: "Bendogo", ville: "Ouagadougou", adresse: "Route de Fada, au feu du rond-point menant à Quatr Yaar, face pharmacie Hanahim.", tel: ["06 20 50 50"] },
-  { nom: "Siao", ville: "Ouagadougou", adresse: "Bld de la circulaire, Immeuble NASSA, face au site du SIAO, sur l'alignement de Coris Bank.", tel: ["05 10 86 04"] },
-  { nom: "Kalgondin", ville: "Ouagadougou", adresse: "Avenue des arts, même alignement que bon Samaritain.", tel: ["75 09 39 39"], bientot: "Ouverture en 2026" },
-  { nom: "Ouaga Mall", ville: "Ouagadougou", adresse: "Rez-de-chaussée du Centre Commercial Ouaga Mall, à Ouaga 2000.", tel: ["44 41 42 43"] },
-  { nom: "Gounghin", ville: "Ouagadougou", adresse: "Avenue Kadiogo, en face de SGBF Gounghin, même alignement que Vista Bank et la boutique DHC Outlet.", tel: ["77 19 05 05"] },
-  { nom: "Saphir", ville: "Bobo-Dioulasso", adresse: "Rue Guillaume OUEDRAOGO, face à l'hôtel l'auberge.", tel: ["78 10 82 82", "57 47 16 51"] },
-  { nom: "Koudougou", ville: "Koudougou", adresse: "Avenue Dreux, zone industrielle, près de UBA.", tel: ["72 32 46 46", "77 99 11 30"] },
+  { nom: "Prestige", ville: "Ouagadougou", adresse: "Avenue Kwame N'Krumah, face à l'immeuble CORIS BANK.", tel: ["70 21 63 63", "06 20 70 70"],
+    horaires: [["Lun – Ven", "7h30 – 19h30"], ["Samedi", "9h – 18h"]] },
+  { nom: "1200 Logements", ville: "Ouagadougou", adresse: "Immeuble el hadji SORE, au feu du rond-point, face à l'université Aube Nouvelle (ancien ISIG).", tel: ["71 24 41 70", "57 47 16 52"],
+    horaires: [["Lun – Ven", "7h30 – 19h30"], ["Samedi", "9h – 18h"]] },
+  { nom: "Ouaga 2000", ville: "Ouagadougou", adresse: "Avenue de la Jeunesse (ex France Afrique), même alignement que UBA et ECOBANK.", tel: ["72 44 18 18"],
+    horaires: [["Lun – Ven", "8h30 – 18h30"], ["Samedi", "9h – 17h"]] },
+  { nom: "Tampouy", ville: "Ouagadougou", adresse: "Route de Ouahigouya, sous l'immeuble du lycée privé la référence, face à l'agence SGBF et de l'alimentation bon samaritain.", tel: ["72 82 20 20", "57 47 16 53"],
+    horaires: [["Lun – Ven", "8h30 – 18h30"], ["Samedi", "9h – 13h"]] },
+  { nom: "Bendogo", ville: "Ouagadougou", adresse: "Route de Fada, au feu du rond-point menant à Quatr Yaar, face pharmacie Hanahim.", tel: ["06 20 50 50"],
+    horaires: [["Lun – Ven", "8h30 – 18h30"], ["Samedi", "9h – 17h"]] },
+  { nom: "Siao", ville: "Ouagadougou", adresse: "Bld de la circulaire, Immeuble NASSA, face au site du SIAO, sur l'alignement de Coris Bank.", tel: ["05 10 86 04"],
+    horaires: [["Lun – Ven", "8h30 – 18h30"], ["Samedi", "9h – 17h"]] },
+  { nom: "Kalgondin", ville: "Ouagadougou", adresse: "Avenue des arts, même alignement que bon Samaritain.", tel: ["75 09 39 39"], bientot: "Ouverture en 2026",
+    horaires: [["Lun, Mar, Ven", "7h30 – 20h"], ["Mercredi", "7h30 – 19h30"], ["Samedi", "9h – 17h"]] },
+  { nom: "Ouaga Mall", ville: "Ouagadougou", adresse: "Rez-de-chaussée du Centre Commercial Ouaga Mall, à Ouaga 2000.", tel: ["44 41 42 43"],
+    horaires: [["Lun – Ven", "7h30 – 20h"], ["Samedi", "9h – 20h"], ["Dimanche", "10h30 – 18h30"]] },
+  { nom: "Gounghin", ville: "Ouagadougou", adresse: "Avenue Kadiogo, en face de SGBF Gounghin, même alignement que Vista Bank et la boutique DHC Outlet.", tel: ["77 19 05 05"],
+    horaires: [["Lun – Ven", "7h30 – 19h30"], ["Samedi", "9h – 18h"]] },
+  { nom: "Saphir", ville: "Bobo-Dioulasso", adresse: "Rue Guillaume OUEDRAOGO, face à l'hôtel l'auberge.", tel: ["78 10 82 82", "57 47 16 51"],
+    horaires: [["Lun – Ven", "8h30 – 18h30"], ["Samedi", "9h – 17h"]] },
+  { nom: "Koudougou", ville: "Koudougou", adresse: "Avenue Dreux, zone industrielle, près de UBA.", tel: ["72 32 46 46", "77 99 11 30"],
+    horaires: [["Lun – Ven", "8h30 – 18h30"], ["Samedi", "9h – 17h"]] },
 ];
 
 const VILLES_AGENCES = ["Ouagadougou", "Bobo-Dioulasso", "Koudougou"];
@@ -69,6 +82,11 @@ const VILLES_AGENCES = ["Ouagadougou", "Bobo-Dioulasso", "Koudougou"];
       '<p class="agence-tel">' +
       a.tel.map((t) => '<a href="' + telLien(t) + '">' + esc(t) + "</a>").join(" / ") +
       "</p>" +
+      (a.horaires
+        ? '<dl class="agence-horaires">' +
+          a.horaires.map((h) => "<div><dt>" + esc(h[0]) + "</dt><dd>" + esc(h[1]) + "</dd></div>").join("") +
+          "</dl>"
+        : "") +
       '<a class="agence-iti" href="' + urlItineraire(a) + '" target="_blank" rel="noopener">Itinéraire →</a>' +
       "</article>"
     );

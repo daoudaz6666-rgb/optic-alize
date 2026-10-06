@@ -20,7 +20,7 @@ window.EMAILJS_TEMPLATE_ID = "template_dhqytua";
 
 /* Garde MAIL_DEST pour compatibilité (affiché nulle part côté EmailJS,
    mais utile comme repère de l'adresse de test actuelle). */
-window.MAIL_DEST = "pdg.alize@gmail.com";
+window.MAIL_DEST = "service-client@opticalize-bf.com";
 
 var _emailjsAttente = null;
 function chargerEmailJS(cb) {
