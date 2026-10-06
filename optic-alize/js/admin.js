@@ -910,7 +910,7 @@
     if (rl) rl.addEventListener("click", function () {
       var adrs = echus.map(function (r) { return r.email; }).join(",");
       var sujet = encodeURIComponent("Optic Alize - il est temps de controler votre vue");
-      var corps = encodeURIComponent("Bonjour,\n\nCela fait un moment que nous n'avons pas verifie votre vue. Prenez rendez-vous dans l'une de nos agences : nous vous accueillons du lundi au samedi.\n\nL'equipe Optic Alize");
+      var corps = encodeURIComponent("Bonjour,\n\nCela fait un moment que nous n'avons pas verifie votre vue. Prenez rendez-vous dans l'une de nos agences (horaires selon l'agence : https://opticalize-bf.com/contact.html).\n\nL'equipe Optic Alize");
       window.location.href = "mailto:?bcc=" + adrs + "&subject=" + sujet + "&body=" + corps;
     });
   }
