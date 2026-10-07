@@ -676,6 +676,8 @@ section { padding: var(--space-4) 0; }
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .cat-card:hover { transform: translateY(-4px); box-shadow: 0 18px 34px rgba(18,48,61,0.08); }
+.cat-card--badge { position: relative; }
+.cat-badge { position: absolute; top: 12px; left: 12px; z-index: 1; margin: 0; box-shadow: 0 4px 12px rgba(18,48,61,0.15); }
 .cat-media {
   width: 100%;
   height: auto;
