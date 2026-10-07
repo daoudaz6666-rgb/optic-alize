@@ -667,7 +667,7 @@ section { padding: var(--space-4) 0; }
 }
 
 /* ============ Categories / valeurs ============ */
-.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+.cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-3); }
 .cat-card {
   background: var(--blanc);
   border-radius: var(--radius);
